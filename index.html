@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Ads 보안 캠페인 마이크로 사이트</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg-base:#0a0f1a;
+  --bg-surface:#111827;
+  --bg-card:#161e2e;
+  --bg-card-hover:#1c2740;
+  --border:#1f2d44;
+  --border-bright:#2d4060;
+  --text-primary:#e8edf5;
+  --text-secondary:#8fa3be;
+  --text-muted:#4a6080;
+  --accent-blue:#3b82f6;
+  --accent-blue-dim:#1d4ed8;
+  --accent-cyan:#06b6d4;
+  --accent-teal:#0d9488;
+  --accent-red:#ef4444;
+  --accent-orange:#f59e0b;
+  --accent-green:#10b981;
+  --progress-pct:0;
+}
+html,body{height:100%;font-family:'Noto Sans KR',sans-serif;background:var(--bg-base);color:var(--text-primary);font-size:14px;line-height:1.6}
+a{color:inherit;text-decoration:none}
+
+/* ── LAYOUT ── */
+.app{display:grid;grid-template-rows:56px 1fr;height:100vh;overflow:hidden}
+
+/* ── HEADER ── */
+.header{background:var(--bg-surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:12px}
+.logo-shield{width:34px;height:34px;background:linear-gradient(135deg,#1d4ed8,#0891b2);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-shield svg{width:18px;height:18px;fill:white}
+.logo-text{display:flex;flex-direction:column}
+.logo-title{font-size:15px;font-weight:700;color:var(--text-primary);letter-spacing:-0.3px}
+.logo-title span{color:var(--accent-blue);font-weight:400}
+.logo-sub{font-size:11px;color:var(--text-muted)}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:16px}
+.alert-badge{background:#450a0a;border:1px solid #7f1d1d;color:#fca5a5;font-size:11px;font-weight:600;padding:4px 12px;border-radius:100px;display:flex;align-items:center;gap:6px}
+.alert-dot{width:7px;height:7px;border-radius:50%;background:#ef4444;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.header-date{font-size:11px;color:var(--text-muted);font-family:'IBM Plex Mono',monospace}
+
+/* ── BODY ── */
+.body{display:grid;grid-template-columns:260px 1fr;overflow:hidden}
+
+/* ── SIDEBAR ── */
+.sidebar{background:var(--bg-surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;padding:20px 0}
+.sidebar-label{font-size:10px;font-weight:700;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;padding:0 20px 10px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;cursor:pointer;transition:background .15s;color:var(--text-secondary);font-size:13px;border-left:3px solid transparent;margin:1px 0}
+.nav-item:hover{background:var(--bg-card);color:var(--text-primary)}
+.nav-item.active{background:rgba(59,130,246,.1);border-left-color:var(--accent-blue);color:var(--text-primary)}
+.nav-item svg{width:16px;height:16px;flex-shrink:0;opacity:.7}
+.nav-item.active svg{opacity:1;color:var(--accent-blue)}
+.nav-danger svg{color:var(--accent-red);opacity:.8}
+.sidebar-spacer{flex:1}
+.sidebar-progress{padding:16px 20px;border-top:1px solid var(--border);margin-top:8px}
+.progress-label{font-size:11px;color:var(--text-muted);margin-bottom:12px;text-align:center}
+.progress-ring-wrap{display:flex;justify-content:center;margin-bottom:8px}
+.progress-ring{position:relative;width:80px;height:80px}
+.progress-ring svg{transform:rotate(-90deg)}
+.progress-ring .track{stroke:var(--border);stroke-width:5;fill:none}
+.progress-ring .fill{stroke:var(--accent-blue);stroke-width:5;fill:none;stroke-dasharray:220;stroke-dashoffset:220;stroke-linecap:round;transition:stroke-dashoffset .6s ease}
+.progress-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--text-primary)}
+.progress-hint{font-size:11px;color:var(--text-muted);text-align:center}
+
+/* ── MAIN ── */
+.main{overflow-y:auto;background:var(--bg-base)}
+.page{display:none;padding:32px;animation:fadeIn .25s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── COMMON ── */
+.section-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--accent-cyan);border:1px solid rgba(6,182,212,.3);padding:3px 10px;border-radius:4px;margin-bottom:16px}
+.section-badge.red{color:#fca5a5;border-color:rgba(239,68,68,.3)}
+.page-title{font-size:26px;font-weight:700;color:var(--text-primary);margin-bottom:8px;letter-spacing:-0.5px}
+.page-title .hl{color:var(--accent-cyan)}
+.page-desc{font-size:13px;color:var(--text-secondary);margin-bottom:28px;max-width:680px;line-height:1.7}
+
+/* ── CARDS ── */
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:20px}
+.card-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:18px}
+.card-icon.red{background:rgba(239,68,68,.12);color:var(--accent-red)}
+.card-icon.blue{background:rgba(59,130,246,.12);color:var(--accent-blue)}
+.card-icon.green{background:rgba(16,185,129,.12);color:var(--accent-green)}
+.card-title{font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:8px}
+.card-body{font-size:12px;color:var(--text-secondary);line-height:1.65}
+
+/* ── HERO BOX ── */
+.hero-box{background:linear-gradient(135deg,#111827 0%,#0f1f35 100%);border:1px solid var(--border-bright);border-radius:16px;padding:32px;margin-bottom:24px}
+.hero-btns{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:.15s}
+.btn-primary{background:var(--accent-blue);color:#fff}
+.btn-primary:hover{background:var(--accent-blue-dim)}
+.btn-secondary{background:transparent;border:1px solid var(--border-bright);color:var(--text-secondary)}
+.btn-secondary:hover{background:var(--bg-card-hover);color:var(--text-primary)}
+.btn-teal{background:var(--accent-teal);color:#fff}
+.btn-teal:hover{filter:brightness(1.1)}
+
+/* ── PAGE 2 CHECKLIST ── */
+.form-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-label{font-size:11px;color:var(--text-secondary);font-weight:600}
+.form-label .req{color:var(--accent-red);margin-left:2px}
+.form-input{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text-primary);font-size:13px;font-family:'Noto Sans KR',sans-serif;outline:none;transition:.15s}
+.form-input:focus{border-color:var(--accent-blue);box-shadow:0 0 0 3px rgba(59,130,246,.15)}
+.form-input::placeholder{color:var(--text-muted)}
+.checklist-table{width:100%;border-collapse:collapse}
+.checklist-table th{font-size:11px;color:var(--text-muted);font-weight:600;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.checklist-table td{padding:16px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.checklist-table tr:last-child td{border-bottom:none}
+.check-row:hover td{background:rgba(59,130,246,.04)}
+.check-label{font-size:13px;font-weight:600;color:var(--text-primary);white-space:nowrap}
+.check-detail{font-size:12px;color:var(--text-secondary);line-height:1.7}
+.check-detail .emp{color:var(--accent-blue);font-weight:600}
+.check-detail .warn{color:var(--accent-red);font-weight:600}
+.custom-check{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--border-bright);appearance:none;cursor:pointer;background:var(--bg-base);flex-shrink:0;transition:.15s;position:relative}
+.custom-check:checked{background:var(--accent-blue);border-color:var(--accent-blue)}
+.custom-check:checked::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700}
+.copy-bar{background:rgba(6,182,212,.07);border:1px solid rgba(6,182,212,.2);border-radius:10px;padding:14px 20px;margin-top:20px;display:flex;align-items:center;gap:12px}
+.copy-bar svg{color:var(--accent-cyan);flex-shrink:0}
+.copy-bar-text{font-size:12px;color:var(--text-secondary);flex:1;line-height:1.6}
+.copy-btn{background:var(--accent-cyan);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:.15s}
+.copy-btn:hover{filter:brightness(1.1)}
+.copy-btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* ── PAGE 3 ADVANCED PROTECTION ── */
+.ap-features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+.ap-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.ap-card-icon{font-size:22px;margin-bottom:12px}
+.ap-card-title{font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:8px}
+.ap-card-body{font-size:12px;color:var(--text-secondary);line-height:1.65}
+.ap-enroll-btn{display:inline-flex;align-items:center;gap:10px;margin-top:24px;background:var(--accent-blue);color:#fff;border:none;border-radius:10px;padding:14px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:.15s}
+.ap-enroll-btn:hover{background:var(--accent-blue-dim)}
+.ap-enroll-btn svg{width:18px;height:18px}
+
+/* ── PAGE 4 SYSTEM CHECK ── */
+.step-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.step-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative}
+.step-num{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--accent-blue);margin-bottom:8px}
+.step-card-title{font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px}
+.step-card-body{font-size:12px;color:var(--text-secondary);line-height:1.7}
+.step-card-body .emp{color:var(--accent-blue);font-weight:600}
+.step-tag{display:inline-flex;align-items:center;gap:5px;margin-top:14px;font-size:11px;color:var(--accent-teal)}
+.step-tag::before{content:'✓';font-weight:700}
+.mock-panel{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.mock-toolbar{background:#111827;padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.mock-dot{width:10px;height:10px;border-radius:50%}
+.mock-dot.r{background:#ef4444}
+.mock-dot.y{background:#f59e0b}
+.mock-dot.g{background:#10b981}
+.mock-url{flex:1;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-muted);text-align:center}
+.mock-secure{font-size:11px;color:var(--accent-green);display:flex;align-items:center;gap:4px}
+.mock-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);padding:0 16px}
+.mock-tab{padding:10px 16px;font-size:12px;color:var(--text-muted);cursor:pointer;border-bottom:2px solid transparent}
+.mock-tab.active{color:var(--text-primary);border-bottom-color:var(--accent-blue)}
+.mock-tab.highlight{color:var(--accent-orange)}
+.mock-body{padding:20px 16px}
+.domain-header{font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:4px}
+.domain-sub{font-size:11px;color:var(--text-secondary);margin-bottom:14px}
+.domain-tags{display:flex;gap:8px;flex-wrap:wrap}
+.domain-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.3);color:var(--accent-blue);font-size:11px;padding:5px 12px;border-radius:100px;font-weight:500}
+.domain-tag .lock{color:var(--accent-orange)}
+.add-domain-btn{display:inline-flex;align-items:center;gap:5px;background:var(--bg-surface);border:1px solid var(--border-bright);color:var(--text-secondary);font-size:11px;padding:5px 12px;border-radius:100px;cursor:pointer;transition:.15s}
+.add-domain-btn:hover{color:var(--text-primary)}
+
+/* ── PAGE 5 EMERGENCY ── */
+.emergency-cards{display:flex;flex-direction:column;gap:14px}
+.e-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px 24px;display:flex;align-items:flex-start;gap:20px}
+.e-card-badge{font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.e-card-badge.high{background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3)}
+.e-card-badge.urgent{background:rgba(245,158,11,.15);color:#fcd34d;border:1px solid rgba(245,158,11,.3)}
+.e-card-badge.support{background:rgba(59,130,246,.15);color:#93c5fd;border:1px solid rgba(59,130,246,.3)}
+.e-card-content{flex:1}
+.e-card-title{font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:6px}
+.e-card-body{font-size:12px;color:var(--text-secondary);line-height:1.65}
+.e-link-btn{background:var(--accent-red);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0;font-family:'Noto Sans KR',sans-serif;transition:.15s}
+.e-link-btn:hover{filter:brightness(1.1)}
+.e-link-btn.gray{background:var(--bg-surface);border:1px solid var(--border-bright);color:var(--text-secondary)}
+.e-link-btn.gray:hover{color:var(--text-primary)}
+.e-link-btn.blue{background:var(--accent-blue-dim);color:#fff}
+.internal-box{background:rgba(6,182,212,.05);border:1px solid rgba(6,182,212,.15);border-radius:12px;padding:20px 24px;margin-top:14px}
+.internal-box-title{font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.internal-box-title svg{color:var(--accent-cyan)}
+.internal-box-body{font-size:12px;color:var(--text-secondary);line-height:1.7}
+.internal-box-body .bold{font-weight:700;color:var(--text-primary)}
+
+/* ── RESET-BTN ── */
+.reset-btn{display:flex;align-items:center;gap:6px;background:transparent;border:none;color:var(--accent-red);font-size:12px;font-weight:600;cursor:pointer;padding:4px 0;font-family:'Noto Sans KR',sans-serif}
+.reset-btn:hover{opacity:.8}
+.checklist-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.submit-btn{background:var(--accent-green);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:.15s;font-family:'Noto Sans KR',sans-serif}
+.submit-btn:hover{filter:brightness(1.1)}
+.submit-btn:disabled{opacity:.35;cursor:not-allowed;filter:none}
+.submit-btn.loading{background:#374151;cursor:not-allowed}
+.action-bar{background:rgba(6,182,212,.07);border:1px solid rgba(6,182,212,.2);border-radius:10px;padding:14px 20px;margin-top:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.action-bar-text{font-size:12px;color:var(--text-secondary);flex:1;line-height:1.6;min-width:200px}
+.action-bar-btns{display:flex;gap:10px;align-items:center;flex-shrink:0}
+.submit-status{font-size:12px;font-weight:600;padding:6px 12px;border-radius:6px;display:none}
+.submit-status.success{display:flex;align-items:center;gap:6px;background:rgba(16,185,129,.15);color:#6ee7b7;border:1px solid rgba(16,185,129,.3)}
+.submit-status.error{display:flex;align-items:center;gap:6px;background:rgba(239,68,68,.12);color:#fca5a5;border:1px solid rgba(239,68,68,.3)}
+.gas-url-notice{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.25);border-radius:10px;padding:12px 16px;margin-top:12px;font-size:11px;color:#fcd34d;display:flex;align-items:flex-start;gap:8px;line-height:1.7}
+.gas-url-notice.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo-shield">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L3 7v5c0 5.25 3.75 10.14 9 11.28C17.25 22.14 21 17.25 21 12V7l-9-5zm-1 13l-3-3 1.41-1.41L11 12.17l4.59-4.58L17 9l-6 6z"/></svg>
+  </div>
+  <div class="logo-text">
+    <div class="logo-title">Google Ads <span>보안 캠페인 마이크로 사이트</span></div>
+    <div class="logo-sub">사내 광고 자산 침해 예방 가이드라인 및 필수 체크리스트</div>
+  </div>
+  <div class="header-right">
+    <div class="alert-badge"><span class="alert-dot"></span>긴급 긴장 단계 발령 중</div>
+  </div>
+</header>
+
+<!-- BODY -->
+<div class="body">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-label">가이드라인 차례</div>
+
+    <div class="nav-item active" onclick="navigate(0)" id="nav-0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      개요 및 대시보드
+    </div>
+    <div class="nav-item" onclick="navigate(1)" id="nav-1">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      정기 자가진단 패널
+    </div>
+    <div class="nav-item" onclick="navigate(2)" id="nav-2">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      구글 고급 보호 프로그램
+    </div>
+    <div class="nav-item" onclick="navigate(3)" id="nav-3">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      구글 애즈 시스템 실검증
+    </div>
+    <div class="nav-item nav-danger" onclick="navigate(4)" id="nav-4">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      침해 사고 비상 대응 요령
+    </div>
+
+    <div class="sidebar-spacer"></div>
+
+    <div class="sidebar-progress">
+      <div class="progress-label">나의 광고 계정 보안 달성률</div>
+      <div class="progress-ring-wrap">
+        <div class="progress-ring">
+          <svg width="80" height="80" viewBox="0 0 80 80">
+            <circle class="track" cx="40" cy="40" r="35"/>
+            <circle class="fill" id="progress-fill" cx="40" cy="40" r="35"/>
+          </svg>
+          <div class="progress-num" id="progress-num">0%</div>
+        </div>
+      </div>
+      <div class="progress-hint">진단표를 자가 체크해 주세요.</div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- PAGE 0: 개요 및 대시보드 -->
+    <div class="page active" id="page-0">
+      <div class="hero-box">
+        <div class="section-badge">CAMPAIGN NOTICE</div>
+        <div class="page-title">소중한 광고 자산 및 비즈니스를<br><span class="hl">악성 위협으로부터 안전하게 보호합시다</span></div>
+        <p style="font-size:13px;color:var(--text-secondary);max-width:660px;line-height:1.8;margin-top:12px">
+          최근 당사 일부 광고 계정 및 파트너사 대행사 권한 침해 이슈가 발생했습니다. 악의적인 무단 결제 캠페인 집행 및 예산 낭비를 막기 위하여, 구글 애즈 CID를 관리하는 모든 임직원은 본 가이드라인에 따른 사전 및 사후 조치를 반드시 완료해야 합니다.
+        </p>
+        <div class="hero-btns">
+          <button class="btn btn-primary" onclick="navigate(1)">✅ 자가진단 시작하기</button>
+          <button class="btn btn-secondary" onclick="navigate(4)">ℹ 도움 의심 시 즉각 조치</button>
+        </div>
+      </div>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon red">🔓</div>
+          <div class="card-title">위협의 시작점</div>
+          <div class="card-body">검증되지 않은 크랙 파일, 개인 디바이스 관리 부주의로 인해 구글 세션 토큰 및 비밀번호가 감염되어 계정이 통째로 납치될 수 있습니다.</div>
+        </div>
+        <div class="card">
+          <div class="card-icon blue">🔗</div>
+          <div class="card-title">무분별한 초대 방어</div>
+          <div class="card-body">구글 애즈 관리자 패널에서 모르는 외부 이메일 주소가 계정에 초대를 받았는지, 권한 위임 승인이 이루어졌는지 지금 검증이 요구됩니다.</div>
+        </div>
+        <div class="card">
+          <div class="card-icon green">✅</div>
+          <div class="card-title">완성도 높은 보고</div>
+          <div class="card-body">진단이 끝나면 결과를 텍스트 형식으로 클립보드에 원클릭 자동 복사하여, 팀장 및 소속 본부 담당자에게 지체없이 보고할 수 있습니다.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 1: 정기 자가진단 패널 -->
+    <div class="page" id="page-1">
+      <div class="checklist-header">
+        <div>
+          <div class="section-badge" style="margin-bottom:10px">✅ 임직원 계정별 보안 자가진단 현황판</div>
+          <p style="font-size:12px;color:var(--text-secondary)">소유한 구글 마스터 MCC 및 개별 CID 광고 계정의 상태를 체크하고 점검 기록을 보관하십시오.</p>
+        </div>
+        <button class="reset-btn" onclick="resetChecks()">🗑 입력값 초기화</button>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">소속 본부<span class="req">*</span></label>
+          <input class="form-input" id="f-dept" placeholder="예) 미디어지원본부" oninput="updateProgress()">
+        </div>
+        <div class="form-group">
+          <label class="form-label">담당 팀<span class="req">*</span></label>
+          <input class="form-input" id="f-team" placeholder="예) 퍼포먼스광고1팀" oninput="updateProgress()">
+        </div>
+        <div class="form-group">
+          <label class="form-label">마스터 MCC ID</label>
+          <input class="form-input" id="f-mcc" placeholder="예) 123-456-7890" oninput="updateProgress()">
+        </div>
+        <div class="form-group">
+          <label class="form-label">대상 개별 CID<span class="req">*</span></label>
+          <input class="form-input" id="f-cid" placeholder="예) 987-654-3210" oninput="updateProgress()">
+        </div>
+      </div>
+
+      <div class="card" style="padding:0">
+        <table class="checklist-table">
+          <thead>
+            <tr>
+              <th style="width:50px">완료</th>
+              <th style="width:180px">점검 항목</th>
+              <th>세부 기준 가이드라인</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="check-row">
+              <td><input type="checkbox" class="custom-check" id="chk-pw" onchange="updateProgress()"></td>
+              <td class="check-label">비밀번호 재설정</td>
+              <td class="check-detail">기존 비밀번호 폐기 후 <span class="emp">영문+숫자+특수 기호를 혼합한 16자 이상</span>의 무작위 비밀번호로 교체하십시오. 브라우저 저장 기능을 피하고 독립적인 패스워드 매니저 활용을 권장합니다.</td>
+            </tr>
+            <tr class="check-row">
+              <td><input type="checkbox" class="custom-check" id="chk-mfa" onchange="updateProgress()"></td>
+              <td class="check-label">2단계 인증 (MFA) 가동</td>
+              <td class="check-detail">로그인 이메일 계정에 <span class="emp">구글 OTP, 휴대폰 실물 인증 등의 멀티팩터 인증(MFA)</span>을 강제 활성화하십시오. 패스워드 유출 시 발생하는 2차 탈취를 완벽 방어합니다.</td>
+            </tr>
+            <tr class="check-row">
+              <td><input type="checkbox" class="custom-check" id="chk-domain" onchange="updateProgress()"></td>
+              <td class="check-label">허용 도메인 제한 설정</td>
+              <td class="check-detail">구글 애즈 [액세스 및 보안] 옵션 내에서 <span class="emp">사내 공식 이메일 도메인(예: @company.com 등)만 계정에 가입 및 초대</span>될 수 있도록 보안 도메인 정책을 한정하십시오.</td>
+            </tr>
+            <tr class="check-row">
+              <td><input type="checkbox" class="custom-check" id="chk-owner" onchange="updateProgress()"></td>
+              <td class="check-label">계정 소유권 보유 확인</td>
+              <td class="check-detail">담당 마케터 및 핵심 의사결정권자의 계정이 올바른 최고 관리자(Admin) 권한을 직접 보존 중인지 확인하고, <span class="warn">퇴사자나 권한이 불분명한 유령 계정 및 서드파티 에이전시 권한</span>이 불필요하게 남아 있는지 회수 조치하십시오.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="action-bar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;color:var(--accent-cyan)"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div class="action-bar-text">필수 입력 정보와 4가지 보안 체크를 모두 완료하면 버튼이 활성화됩니다. <strong style="color:var(--text-primary)">시트에 제출</strong>하면 구글 스프레드시트에 자동 기록되며, <strong style="color:var(--text-primary)">결과 복사</strong>로 메일 보고에 활용할 수 있습니다.</div>
+        <div class="action-bar-btns">
+          <span class="submit-status" id="submit-status"></span>
+          <button class="copy-btn" id="copy-btn" onclick="copyResult()" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            결과 복사
+          </button>
+          <button class="submit-btn" id="submit-btn" onclick="submitToSheets()" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+            시트에 제출
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 2: 구글 고급 보호 프로그램 -->
+    <div class="page" id="page-2">
+      <div class="section-badge">GOOGLE HIGHEST LEVEL SECURITY</div>
+      <div class="page-title">🔐 구글 고급 보호 프로그램 (Advanced Protection)</div>
+      <p class="page-desc">주요 마케팅 자산 총괄 관리자, 사내 마스터 MCC 소유자 및 기밀 정보를 가공하는 핵심 계정 소유자는 표적형 피싱 공격 및 고도화된 해킹 위협을 완벽히 격리하기 위해 구글 제공 최고 수준의 계정 보안 프로그램인 '고급 보호 프로그램' 가입이 적극 권장됩니다.</p>
+
+      <div class="ap-features">
+        <div class="ap-card">
+          <div class="ap-card-icon">🔑</div>
+          <div class="ap-card-title">보안 키 전용 작동</div>
+          <div class="ap-card-body">FIDO 물리 보안 키 또는 모바일 전용 모바일 키 확인 후 하드웨어적인 검증만을 허용합니다.</div>
+        </div>
+        <div class="ap-card">
+          <div class="ap-card-icon">🛡</div>
+          <div class="ap-card-title">앱 유입의 선별적 차단</div>
+          <div class="ap-card-body">승인받지 않은 제3자 서비스 및 악성 이메일을 동반한 악의적 외부 연동을 완전하게 차단합니다.</div>
+        </div>
+        <div class="ap-card">
+          <div class="ap-card-icon">📧</div>
+          <div class="ap-card-title">정밀 위협 감지 시스템</div>
+          <div class="ap-card-body">의심스러운 파일 및 유해 이메일 유입이 사전에 감지되어 원클릭 악성 다운로드를 예방합니다.</div>
+        </div>
+      </div>
+
+      <button class="ap-enroll-btn" onclick="window.open('https://landing.google.com/advancedprotection/','_blank')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        구글 고급 보호 프로그램 가입하기 ↗
+      </button>
+    </div>
+
+    <!-- PAGE 3: 구글 애즈 시스템 실검증 -->
+    <div class="page" id="page-3">
+      <div class="section-badge">⚙ 구글 애즈 시스템 실제 설정 점검 절차</div>
+      <p class="page-desc" style="margin-top:8px">상상 혹은 가상 가이드가 아닙니다. 구글 애즈 내 실제 보안 검증 경로를 그대로 이행하십시오.</p>
+
+      <div class="step-cards">
+        <div class="step-card">
+          <div class="step-num">STEP 01</div>
+          <div class="step-card-title">액세스 및 사용자 관리</div>
+          <div class="step-card-body">구글 애즈 상단 메뉴의 <span class="emp">[관리자(Admin)] → [액세스 및 보안(Access & Security)] → [사용자(Users)]</span> 탭에 방문하여 퇴사자 이메일이나 소속 모르는 메일 주소가 등록되어 있는지 즉각 전수 점검하여 필요 없는 권한을 완전 삭제하십시오.</div>
+          <div class="step-tag">실시간 계정 상태 추적 필수</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">STEP 02</div>
+          <div class="step-card-title">허용 도메인 지정 가드</div>
+          <div class="step-card-body">사용자 관리 옆의 <span class="emp">[보안(Security)] 탭을 클릭한 뒤 하위 목록의 [허용된 이메일 도메인(Allowed Email Domains)]</span>을 열고, 오직 당사 도메인만 등록하여 불분명한 외부 개인 구글 계정이 마음대로 신규 초대받지 않도록 사전에 강력 제한하십시오.</div>
+          <div class="step-tag">허가 이외 도메인 초대 원천 방어</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">STEP 03</div>
+          <div class="step-card-title">다자간 승인 설정 확인</div>
+          <div class="step-card-body">구글 애즈의 최신 보안 업데이트 중 하나인 <span class="emp">[다자간 승인(Multi-party Approval)]</span> 기능을 활성화하십시오. 해당 가드가 설정되면 민감한 권한 부여 혹은 대규모 예산 수정 시, 다른 최고관리자 계정의 상호 서명이 요구되어 단일 탈취만으로는 악성 캠페인 집행이 불가능해집니다.</div>
+          <div class="step-tag">최신 협력 승인 이중 결재 구조</div>
+        </div>
+      </div>
+
+      <div class="mock-panel">
+        <div class="mock-toolbar">
+          <div class="mock-dot r"></div>
+          <div class="mock-dot y"></div>
+          <div class="mock-dot g"></div>
+          <div class="mock-url">Google Ads – Access &amp; Security Panel</div>
+          <div class="mock-secure">🔒 Secured Session</div>
+        </div>
+        <div class="mock-tabs">
+          <div class="mock-tab active">Users (사용자 관리)</div>
+          <div class="mock-tab">Managers (지정 관리자)</div>
+          <div class="mock-tab highlight">Security (보안 탭) &nbsp; 허용 도메인 관리</div>
+        </div>
+        <div class="mock-body">
+          <div class="domain-header">허용된 이메일 도메인 (Allowed Email Domains)</div>
+          <div class="domain-sub">지정된 회사 도메인의 소유자만 구글 애즈 CID에 초대받고 접속 가능합니다.</div>
+          <div class="domain-tags">
+            <div class="domain-tag">@yourcompany.com ✅</div>
+            <div class="domain-tag"><span class="lock">🔒</span>@partner-agency-domain.com</div>
+            <div class="add-domain-btn">+ 도메인 추가</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 4: 침해 사고 비상 대응 요령 -->
+    <div class="page" id="page-4">
+      <div class="section-badge red">⚠ 계정 무단 도용 침해 사고 감지 시 긴급 조치 가이드</div>
+      <p class="page-desc" style="margin-top:8px">해킹이 이미 발생하였거나, 확인 불명의 신규 캠페인 발견, 과도한 비용 청구가 임의 관측된 경우 즉시 이행할 접수처 목록입니다.</p>
+
+      <div class="emergency-cards">
+        <div class="e-card">
+          <div class="e-card-badge high">HIGH ALERT</div>
+          <div class="e-card-content">
+            <div class="e-card-title">도용당한 Google Ads 계정 긴급 신고</div>
+            <div class="e-card-body">구글 애즈 접속 권한을 침해 당했거나, 외부인에 의해 결제 및 허위 승인이 무단 진행 중일 때 공식 조사를 접수하는 정식 구글 포털 소명 채널입니다.</div>
+          </div>
+          <button class="e-link-btn" onclick="window.open('https://support.google.com/google-ads/contact/compromised_account','_blank')">신고 접수처 바로가기 ↗</button>
+        </div>
+        <div class="e-card">
+          <div class="e-card-badge urgent">URGENT</div>
+          <div class="e-card-content">
+            <div class="e-card-title">구글 애즈 고객센터 긴급 요청 제출</div>
+            <div class="e-card-body">광고 캠페인의 긴급 중단 요청 및 무단 청구된 악성 광고 결제건 무효 처리를 위해 구글 전문 지원팀에 사건 양식을 직접 제보하는 고객센터 접수처입니다.</div>
+          </div>
+          <button class="e-link-btn gray" onclick="window.open('https://support.google.com/google-ads/?visit_id=639014939626183017-2191483060&rd=1&sjid=1819302977565459881-NC#topic=10286612','_blank')">요청 양식 접수처 바로가기 ↗</button>
+        </div>
+        <div class="e-card">
+          <div class="e-card-badge support">SUPPORT</div>
+          <div class="e-card-content">
+            <div class="e-card-title">Google Ads 도움말 센터 내 긴급 조치 가이드</div>
+            <div class="e-card-body">구글 공식 도움말 문서를 정독하고 본인 계정 복구를 위한 단계별 검증 절차에 맞추어 무단 가입된 에이전시나 유령 이메일의 무력화를 신청하십시오.</div>
+          </div>
+          <button class="e-link-btn blue" onclick="window.open('https://support.google.com/google-ads/contact/compromised_account','_blank')">공식 지원 가이드 보기 ↗</button>
+        </div>
+      </div>
+
+      <div class="internal-box">
+        <div class="internal-box-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          사내 보안팀 내부 보고 및 통제 가이드라인
+        </div>
+        <div class="internal-box-body">
+          구글 측에 외부 신고 접수를 즉시 처리함과 병행하여, <span class="bold">사내 전산 보안 부서(CERT) 및 법무팀 담당자</span>에게 침해 사실을 지체 없이 공유해야 합니다. 카드사 및 은행에 직접 연락하여 광고 전용 결제 카드의 결제 일시정지를 진행해 추가적인 금융 유출 피해를 완벽 방지하십시오.
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+</div>
+
+<script>
+// ──────────────────────────────────────────────
+// ★ Apps Script 배포 후 아래 URL을 교체하세요
+var GAS_URL = 'https://script.google.com/macros/s/AKfycbyjLrLLYwjPipot_nBba8KTDy1O13RI5WYBKGejPcml3eos10x2tK2xigwAEOB_SqDh/exec';
+// ──────────────────────────────────────────────
+
+var currentPage = 0;
+
+// GAS_URL 미설정 시 안내 표시
+(function() {
+  if (GAS_URL === 'https://script.google.com/macros/s/AKfycbyjLrLLYwjPipot_nBba8KTDy1O13RI5WYBKGejPcml3eos10x2tK2xigwAEOB_SqDh/exec') {
+    document.getElementById('gas-notice').classList.remove('hidden');
+  } else {
+    document.getElementById('gas-notice').classList.add('hidden');
+  }
+})();
+
+function navigate(idx) {
+  document.querySelectorAll('.nav-item').forEach(function(el,i){ el.classList.toggle('active', i===idx); });
+  document.querySelectorAll('.page').forEach(function(el,i){ el.classList.toggle('active', i===idx); });
+  currentPage = idx;
+}
+
+function updateProgress() {
+  var checks = ['chk-pw','chk-mfa','chk-domain','chk-owner'];
+  var fields = ['f-dept','f-team','f-cid'];
+  var checkedCount = checks.filter(function(id){ return document.getElementById(id).checked; }).length;
+  var filledCount = fields.filter(function(id){ return document.getElementById(id).value.trim(); }).length;
+  var total = checks.length;
+  var pct = Math.round((checkedCount / total) * 100);
+  var circumference = 2 * Math.PI * 35;
+  var offset = circumference - (pct / 100) * circumference;
+  document.getElementById('progress-fill').style.strokeDashoffset = offset;
+  document.getElementById('progress-num').textContent = pct + '%';
+  var allDone = checkedCount === total && filledCount === 3;
+  document.getElementById('copy-btn').disabled = !allDone;
+  var submitBtn = document.getElementById('submit-btn');
+  submitBtn.disabled = !(allDone && GAS_URL !== 'YOUR_APPS_SCRIPT_WEB_APP_URL');
+  if (allDone && GAS_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL') {
+    submitBtn.title = 'GAS_URL을 먼저 설정해 주세요';
+  }
+}
+
+function resetChecks() {
+  ['chk-pw','chk-mfa','chk-domain','chk-owner'].forEach(function(id){ document.getElementById(id).checked = false; });
+  ['f-dept','f-team','f-mcc','f-cid'].forEach(function(id){ document.getElementById(id).value = ''; });
+  setSubmitStatus('idle');
+  updateProgress();
+}
+
+function setSubmitStatus(state, msg) {
+  var el = document.getElementById('submit-status');
+  el.className = 'submit-status';
+  if (state === 'success') {
+    el.className = 'submit-status success';
+    el.textContent = '✅ ' + (msg || '시트 제출 완료');
+    el.style.display = 'flex';
+  } else if (state === 'error') {
+    el.className = 'submit-status error';
+    el.textContent = '❌ ' + (msg || '제출 실패. 재시도해 주세요');
+    el.style.display = 'flex';
+  } else {
+    el.style.display = 'none';
+  }
+}
+
+function submitToSheets() {
+  var dept   = document.getElementById('f-dept').value.trim();
+  var team   = document.getElementById('f-team').value.trim();
+  var mcc    = document.getElementById('f-mcc').value.trim();
+  var cid    = document.getElementById('f-cid').value.trim();
+  var chkPw     = document.getElementById('chk-pw').checked;
+  var chkMfa    = document.getElementById('chk-mfa').checked;
+  var chkDomain = document.getElementById('chk-domain').checked;
+  var chkOwner  = document.getElementById('chk-owner').checked;
+  var score = Math.round(
+    [chkPw, chkMfa, chkDomain, chkOwner].filter(Boolean).length / 4 * 100
+  );
+
+  var btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.classList.add('loading');
+  btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin .8s linear infinite"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" opacity=".3"/><path d="M21 12a9 9 0 00-9-9"/></svg> 제출 중...';
+  setSubmitStatus('idle');
+
+  var params = new URLSearchParams({
+    dept:       dept,
+    team:       team,
+    mcc:        mcc || '미입력',
+    cid:        cid,
+    chk_pw:     String(chkPw),
+    chk_mfa:    String(chkMfa),
+    chk_domain: String(chkDomain),
+    chk_owner:  String(chkOwner),
+    score:      String(score)
+  });
+
+  fetch(GAS_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' })
+    .then(function() {
+      setSubmitStatus('success', '시트 제출 완료 (' + new Date().toLocaleTimeString('ko-KR') + ')');
+      btn.classList.remove('loading');
+      btn.innerHTML = '✅ 제출 완료';
+      btn.style.background = '#065f46';
+      // 재제출 방지: 5초 후 버튼 원복
+      setTimeout(function() {
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> 시트에 제출';
+        btn.style.background = '';
+        btn.disabled = false;
+      }, 5000);
+    })
+    .catch(function(err) {
+      setSubmitStatus('error', '네트워크 오류: ' + err.message);
+      btn.classList.remove('loading');
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> 시트에 제출';
+      btn.disabled = false;
+    });
+}
+
+function copyResult() {
+  var now = new Date().toLocaleDateString('ko-KR');
+  var dept = document.getElementById('f-dept').value;
+  var team = document.getElementById('f-team').value;
+  var mcc  = document.getElementById('f-mcc').value || '미입력';
+  var cid  = document.getElementById('f-cid').value;
+  var text = [
+    '=== Google Ads 보안 자가진단 점검 결과 ===',
+    '일시: ' + now,
+    '소속 본부: ' + dept,
+    '담당 팀: ' + team,
+    '마스터 MCC ID: ' + mcc,
+    '대상 개별 CID: ' + cid,
+    '',
+    '[점검 항목 완료 현황]',
+    '✅ 비밀번호 재설정 완료',
+    '✅ 2단계 인증(MFA) 가동 완료',
+    '✅ 허용 도메인 제한 설정 완료',
+    '✅ 계정 소유권 보유 확인 완료',
+    '',
+    '보안 달성률: 100%',
+    '본 결과를 팀장 및 소속 본부 보안 담당자에게 제출하십시오.',
+  ].join('\n');
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = document.getElementById('copy-btn');
+    btn.textContent = '✅ 복사 완료!';
+    setTimeout(function(){
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> 결과 복사';
+    }, 2000);
+  });
+}
+
+updateProgress();
+</script>
+</body>
+</html>
