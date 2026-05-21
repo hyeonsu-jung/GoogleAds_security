@@ -385,6 +385,10 @@ a{color:inherit;text-decoration:none}
           </button>
         </div>
       </div>
+
+      <div class="gas-url-notice hidden" id="gas-notice">
+        ⚠️ <span><strong>설정 필요:</strong> Vercel 프로젝트 <strong>Settings → Environment Variables</strong>에 <code style="background:rgba(255,255,255,.1);padding:1px 5px;border-radius:3px">GAS_URL</code>을 추가한 뒤 재배포해 주세요. (<code style="background:rgba(255,255,255,.1);padding:1px 5px;border-radius:3px">.env.example</code> 참고)</span>
+      </div>
     </div>
 
     <!-- PAGE 2: 구글 고급 보호 프로그램 -->
@@ -516,21 +520,28 @@ a{color:inherit;text-decoration:none}
 </div>
 
 <script>
-// ──────────────────────────────────────────────
-// ★ Apps Script 배포 후 아래 URL을 교체하세요
-var GAS_URL = 'https://script.google.com/macros/s/AKfycbyjLrLLYwjPipot_nBba8KTDy1O13RI5WYBKGejPcml3eos10x2tK2xigwAEOB_SqDh/exec';
-// ──────────────────────────────────────────────
-
+// GAS_URL은 Vercel Environment(서버)에만 저장 — /api/submit 프록시로 전달
+var gasConfigured = false;
 var currentPage = 0;
 
-// GAS_URL 미설정 시 안내 표시
-(function() {
-  if (GAS_URL === 'https://script.google.com/macros/s/AKfycbyjLrLLYwjPipot_nBba8KTDy1O13RI5WYBKGejPcml3eos10x2tK2xigwAEOB_SqDh/exec') {
-    document.getElementById('gas-notice').classList.remove('hidden');
-  } else {
-    document.getElementById('gas-notice').classList.add('hidden');
-  }
-})();
+function refreshGasConfig() {
+  return fetch('/api/config')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      gasConfigured = !!data.configured;
+      var notice = document.getElementById('gas-notice');
+      if (notice) notice.classList.toggle('hidden', gasConfigured);
+      updateProgress();
+    })
+    .catch(function() {
+      gasConfigured = false;
+      var notice = document.getElementById('gas-notice');
+      if (notice) notice.classList.remove('hidden');
+      updateProgress();
+    });
+}
+
+refreshGasConfig();
 
 function navigate(idx) {
   document.querySelectorAll('.nav-item').forEach(function(el,i){ el.classList.toggle('active', i===idx); });
@@ -552,10 +563,8 @@ function updateProgress() {
   var allDone = checkedCount === total && filledCount === 3;
   document.getElementById('copy-btn').disabled = !allDone;
   var submitBtn = document.getElementById('submit-btn');
-  submitBtn.disabled = !(allDone && GAS_URL !== 'YOUR_APPS_SCRIPT_WEB_APP_URL');
-  if (allDone && GAS_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL') {
-    submitBtn.title = 'GAS_URL을 먼저 설정해 주세요';
-  }
+  submitBtn.disabled = !(allDone && gasConfigured);
+  submitBtn.title = allDone && !gasConfigured ? 'Vercel Environment에 GAS_URL을 설정해 주세요' : '';
 }
 
 function resetChecks() {
@@ -612,13 +621,18 @@ function submitToSheets() {
     score:      String(score)
   });
 
-  fetch(GAS_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' })
+  fetch('/api/submit?' + params.toString(), { method: 'GET' })
+    .then(function(r) {
+      return r.json().then(function(data) {
+        if (!r.ok || !data.ok) throw new Error(data.error || '제출 실패');
+        return data;
+      });
+    })
     .then(function() {
       setSubmitStatus('success', '시트 제출 완료 (' + new Date().toLocaleTimeString('ko-KR') + ')');
       btn.classList.remove('loading');
       btn.innerHTML = '✅ 제출 완료';
       btn.style.background = '#065f46';
-      // 재제출 방지: 5초 후 버튼 원복
       setTimeout(function() {
         btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> 시트에 제출';
         btn.style.background = '';
@@ -626,7 +640,7 @@ function submitToSheets() {
       }, 5000);
     })
     .catch(function(err) {
-      setSubmitStatus('error', '네트워크 오류: ' + err.message);
+      setSubmitStatus('error', err.message || '제출 실패. 재시도해 주세요');
       btn.classList.remove('loading');
       btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> 시트에 제출';
       btn.disabled = false;

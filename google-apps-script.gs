@@ -11,7 +11,8 @@
  *    - 다음 사용자로 실행: 나 (본인 Google 계정)
  *    - 액세스 권한: 모든 사용자
  * 5. [배포] 클릭 → 권한 승인 → 웹 앱 URL 복사
- * 6. 복사한 URL을 HTML 파일 최상단 GAS_URL 변수에 붙여넣기
+ * 6. 복사한 URL을 Vercel 프로젝트 Environment Variables의 GAS_URL에 등록
+ *    (로컬: .env.example → .env.local 복사 후 값 입력, `npx vercel dev`)
  */
 
 // ── 시트 헤더 초기 세팅 (최초 1회만 실행)
