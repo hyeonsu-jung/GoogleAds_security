@@ -77,7 +77,7 @@ function handleCIDSubmit(p) {
   // 행 색상 (짝수/홀수 구분)
   var lastRow = sheet.getLastRow();
   var bgColor = (lastRow % 2 === 0) ? '#f8f9ff' : '#ffffff';
-  sheet.getRange(lastRow, 1, 1, 4).setBackground(bgColor);
+  sheet.getRange(lastRow, 1, lastRow, 4).setBackground(bgColor);
 
   // 제출 후 현재 카운트 반환
   var count = Math.max(0, sheet.getLastRow() - 1);

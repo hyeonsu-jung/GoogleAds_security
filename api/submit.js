@@ -15,7 +15,19 @@ export default async function handler(req, res) {
     });
   }
 
-  const allowed = ['dept', 'team', 'mcc', 'cid', 'chk_pw', 'chk_mfa', 'chk_domain', 'chk_owner', 'score'];
+  const allowed = [
+    'action',
+    'dept',
+    'team',
+    'mcc',
+    'cid',
+    'chk_pw',
+    'chk_mfa',
+    'chk_domain',
+    'chk_owner',
+    'score',
+    'ts',
+  ];
   const params = new URLSearchParams();
   for (const key of allowed) {
     const value = req.query[key];
@@ -28,13 +40,32 @@ export default async function handler(req, res) {
 
   try {
     const upstream = await fetch(target, { method: 'GET', redirect: 'follow' });
-    if (!upstream.ok) {
+    const text = await upstream.text();
+    let data = {};
+    try {
+      data = JSON.parse(text);
+    } catch {
+      if (!upstream.ok) {
+        return res.status(502).json({
+          ok: false,
+          error: 'Apps Script 응답 오류 (' + upstream.status + ')',
+        });
+      }
+      return res.status(200).json({ ok: true });
+    }
+
+    if (!upstream.ok || data.ok === false) {
       return res.status(502).json({
         ok: false,
-        error: 'Apps Script 응답 오류 (' + upstream.status + ')',
+        error: data.error || 'Apps Script 응답 오류 (' + upstream.status + ')',
       });
     }
-    return res.status(200).json({ ok: true });
+
+    const body = { ok: true };
+    if (typeof data.count === 'number') {
+      body.count = data.count;
+    }
+    return res.status(200).json(body);
   } catch (err) {
     return res.status(502).json({
       ok: false,
