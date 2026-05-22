@@ -97,6 +97,7 @@ a{color:inherit;text-decoration:none}
 .logo-title .g-red{color:#EA4335;letter-spacing:-1.5px}
 .logo-title .g-yellow{color:#FBBC05;letter-spacing:-1.5px}
 .logo-title .g-green{color:#34A853;letter-spacing:-1.5px}
+.logo-title .g-gray{color:#646464;letter-spacing:-1.5px}
 .logo-title .sec-text{color:var(--on-dark);font-weight:700}
 .logo-guide-inline{
   font-size:12px;font-weight:400;
@@ -1073,7 +1074,83 @@ a{color:inherit;text-decoration:none}
   border-bottom:1px solid var(--hairline);
 }
 
-/* ── 자가진단 페이지 ── */
+/* ── 사이드바 CID 카운터 ── */
+.sidebar-cid-counter{
+  padding:20px 16px 22px;
+  text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+}
+.sidebar-cid-label{
+  font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,.5);
+}
+.sidebar-cid-num{
+  font-size:56px;font-weight:800;
+  color:#ffffff;
+  line-height:1;letter-spacing:-2px;
+  text-shadow:0 0 20px rgba(66,133,244,.5);
+}
+.sidebar-cid-sub{
+  font-size:11px;font-weight:500;
+  color:rgba(255,255,255,.4);
+  letter-spacing:0.5px;
+}
+
+/* ── CID 제출 폼 (자가진단 페이지 하단) ── */
+.cid-form-section{
+  margin-top:20px;
+  background:var(--surface-card);
+  border:1px solid var(--hairline);
+}
+.cid-form-header{
+  padding:14px 20px 10px;
+  border-bottom:1px solid var(--hairline);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.cid-form-title{
+  font-size:14px;font-weight:700;color:var(--on-dark);letter-spacing:-0.2px;
+}
+.cid-form-desc{
+  font-size:12px;color:var(--muted);margin-top:2px;
+}
+.cid-form-body{
+  padding:16px 20px;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;
+  align-items:end;
+}
+.cid-form-group{display:flex;flex-direction:column;gap:5px}
+.cid-form-label{
+  font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;
+  color:var(--muted);
+}
+.cid-form-label .req{color:var(--m-red)}
+.cid-form-input{
+  background:var(--surface-soft);border:1px solid var(--hairline);
+  padding:9px 12px;font-size:13px;
+  font-family:'Noto Sans KR',sans-serif;
+  color:var(--on-dark);outline:none;transition:.15s;
+  border-radius:0;
+}
+.cid-form-input:focus{border-color:var(--m-blue-dark);background:#fff}
+.cid-form-input::placeholder{color:rgba(0,0,0,.3)}
+.cid-submit-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  background:var(--on-dark);color:#fff;border:none;
+  padding:9px 20px;font-size:13px;font-weight:700;
+  font-family:'Noto Sans KR',sans-serif;cursor:pointer;
+  white-space:nowrap;transition:.15s;
+  border-radius:0;
+}
+.cid-submit-btn:hover{background:#333}
+.cid-submit-btn:disabled{opacity:.4;cursor:not-allowed}
+.cid-submit-btn.loading{background:#555}
+.cid-submit-status{
+  padding:10px 20px;font-size:12px;font-weight:600;
+  border-top:1px solid var(--hairline);
+  display:none;align-items:center;gap:6px;
+}
+.cid-submit-status.success{display:flex;color:#137333;background:rgba(19,115,51,.07)}
+.cid-submit-status.error{display:flex;color:var(--m-red);background:rgba(200,32,20,.05)}
 .diag-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
 .diag-title{font-size:24px;font-weight:700;color:var(--on-dark);letter-spacing:-0.5px;margin:8px 0 6px;line-height:1.3}
 .diag-subtitle{font-size:17px;color:#222222;line-height:1.75;font-weight:500}
@@ -1409,7 +1486,7 @@ a{color:inherit;text-decoration:none}
   </div>
   <div class="logo-text">
     <div class="logo-title">
-      <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span><span class="sec-text"> Ads 계정 보안</span>
+      <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span><span class="g-gray">Ads</span><span class="sec-text">계정 보안</span>
       <span class="logo-guide-inline">광고 계정 해킹 예방 가이드라인</span>
     </div>
   </div>
@@ -1430,7 +1507,7 @@ a{color:inherit;text-decoration:none}
     </div>
     <div class="nav-item" onclick="navigate(1)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-      자가 진단
+      자가진단 시작하기
     </div>
     <!-- EMERGENCY NAV — RED -->
     <div class="nav-item nav-danger" onclick="navigate(2)">
@@ -1449,24 +1526,10 @@ a{color:inherit;text-decoration:none}
     <div class="sidebar-spacer"></div>
 
     <div class="sidebar-progress">
-      <div class="progress-ring-wrap">
-        <!-- 링 -->
-        <div class="progress-ring">
-          <svg width="120" height="120" viewBox="0 0 120 120">
-            <defs>
-              <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#4285F4"/>
-                <stop offset="100%" stop-color="#1a73e8"/>
-              </linearGradient>
-            </defs>
-            <circle class="track" cx="60" cy="60" r="52"/>
-            <circle class="fill" id="progress-fill" cx="60" cy="60" r="52"/>
-          </svg>
-          <div class="progress-ring-inner">
-            <div class="progress-num" id="progress-num">0%</div>
-            <div class="progress-num-label">참여율</div>
-          </div>
-        </div>
+      <div class="sidebar-cid-counter">
+        <div class="sidebar-cid-label">점검 완료 계정</div>
+        <div class="sidebar-cid-num" id="cid-count">0</div>
+        <div class="sidebar-cid-sub">건 제출 완료</div>
       </div>
     </div>
     <div class="sidebar-internal-label">Internal Use Only</div>
@@ -1548,7 +1611,7 @@ a{color:inherit;text-decoration:none}
       <!-- 헤더 -->
       <div class="diag-header">
         <div>
-          <div class="section-badge">계정 보안상태 자가진단</div>
+          <div class="section-badge red">계정 보안 상태</div>
           <div class="diag-title">Google Ads 계정 보안 상태 확인 프로세스</div>
           <div class="diag-subtitle">아래는 실제 Google Ads 보안 탭 화면입니다. 동일한 경로로 진입하여 계정 보안 상태를 직접 확인하세요.</div>
         </div>
@@ -1649,6 +1712,38 @@ a{color:inherit;text-decoration:none}
         </div>
 
       </div>
+
+      <!-- CID 제출 폼 -->
+      <div class="cid-form-section">
+        <div class="cid-form-header">
+          <div>
+            <div class="cid-form-title">✅ 자가진단 완료 — CID 제출</div>
+            <div class="cid-form-desc">보안 상태 확인을 완료한 계정 정보를 입력하고 제출해 주세요. 제출된 CID는 좌측 하단 점검 완료 계정 수에 반영됩니다.</div>
+          </div>
+        </div>
+        <div class="cid-form-body">
+          <div class="cid-form-group">
+            <label class="cid-form-label">소속 본부 <span class="req">*</span></label>
+            <input class="cid-form-input" id="cid-dept" placeholder="예) 미디어지원본부">
+          </div>
+          <div class="cid-form-group">
+            <label class="cid-form-label">담당 팀 <span class="req">*</span></label>
+            <input class="cid-form-input" id="cid-team" placeholder="예) 퍼포먼스광고1팀">
+          </div>
+          <div class="cid-form-group">
+            <label class="cid-form-label">대상 CID <span class="req">*</span></label>
+            <input class="cid-form-input" id="cid-id" placeholder="예) 987-654-3210">
+          </div>
+        </div>
+        <div style="padding:0 20px 16px;display:flex;align-items:center;gap:12px">
+          <button class="cid-submit-btn" id="cid-submit-btn" onclick="submitCID()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+            제출하기
+          </button>
+          <div class="cid-submit-status" id="cid-submit-status"></div>
+        </div>
+      </div>
+
     </div>
 
 
@@ -1660,7 +1755,7 @@ a{color:inherit;text-decoration:none}
       <div class="emg-header">
         <div class="emg-header-left">
           <div class="section-badge red">침해 사고 비상 대응</div>
-          <div class="emg-title">계정 무단 도용 침해 사고 감지 시<br>즉각 조치 가이드</div>
+          <div class="emg-title">계정 무단 도용 침해 사고 감지 시 즉각 조치 가이드</div>
           <div class="emg-subtitle">해킹이 이미 발생하였거나, 확인 불명의 신규 캠페인 발견, 과도한 비용 청구가 관측된 경우<br>지체 없이 아래 접수처를 통해 <strong>즉시 신고</strong>하십시오.</div>
         </div>
       </div>
@@ -1730,7 +1825,7 @@ a{color:inherit;text-decoration:none}
       <div class="emg-header" style="margin-bottom:var(--sp-lg)">
         <div class="emg-header-left">
           <div class="section-badge red">계정 도용시 취해야할 조치</div>
-          <div class="emg-title">계정을 도용당한 경우<br>취해야 할 조치</div>
+          <div class="emg-title">계정을 도용당한 경우 취해야 할 조치</div>
           <div class="emg-subtitle">Google Ads 계정이 도용된 경우 아래 단계에 따라 최대한 빨리 문제를 해결하세요.<br>
             <a href="https://support.google.com/google-ads/answer/9355975?hl=ko" target="_blank" style="color:var(--m-blue-dark);font-weight:600;font-size:13px;">Google 공식 가이드 전체 보기 ↗</a>
           </div>
@@ -2188,6 +2283,38 @@ function refreshGasConfig() {
       updateProgress();
     });
 }
+
+/* ── CID 제출 ── */
+function submitCID(){
+  var dept=(document.getElementById('cid-dept')||{}).value||'';
+  var team=(document.getElementById('cid-team')||{}).value||'';
+  var cid=(document.getElementById('cid-id')||{}).value||'';
+  dept=dept.trim();team=team.trim();cid=cid.trim();
+  if(!dept||!team||!cid){setCIDStatus('error','소속 본부, 담당 팀, 대상 CID를 모두 입력해 주세요.');return;}
+  var btn=document.getElementById('cid-submit-btn');
+  btn.disabled=true;btn.classList.add('loading');btn.textContent='제출 중...';
+  var params=new URLSearchParams({action:'cid',dept:dept,team:team,cid:cid,ts:new Date().toISOString()});
+  fetch('/api/submit?'+params.toString(),{method:'GET'})
+    .then(function(r){return r.json().then(function(d){if(!r.ok||!d.ok)throw new Error(d.error||'오류');return d;});})
+    .then(function(d){
+      setCIDStatus('success','✅ 제출 완료 — '+cid);
+      ['cid-dept','cid-team','cid-id'].forEach(function(id){var e=document.getElementById(id);if(e)e.value='';});
+      btn.classList.remove('loading');
+      btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> 제출하기';
+      btn.disabled=false;
+      if(d.count!==undefined)updateCIDCount(d.count);else loadCIDCount();
+    })
+    .catch(function(err){
+      setCIDStatus('error','❌ '+(err.message||'제출 실패'));
+      btn.classList.remove('loading');
+      btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> 제출하기';
+      btn.disabled=false;
+    });
+}
+function setCIDStatus(type,msg){var el=document.getElementById('cid-submit-status');if(!el)return;el.className='cid-submit-status '+type;el.textContent=msg;}
+function loadCIDCount(){fetch('/api/count').then(function(r){return r.json();}).then(function(d){updateCIDCount(d.count||0);}).catch(function(){});}
+function updateCIDCount(n){var el=document.getElementById('cid-count');if(el)el.textContent=n;}
+loadCIDCount();
 
 refreshGasConfig();
 
