@@ -148,17 +148,35 @@ a{color:inherit;text-decoration:none}
 /* ── BODY GRID ── */
 .body{display:grid;grid-template-columns:260px 1fr;grid-template-rows:1fr auto;overflow:hidden;height:calc(100vh - 68px)}
 .main{overflow-y:auto;background:var(--canvas);grid-row:1;grid-column:2}
-.site-footer{
-  grid-row:2;grid-column:2;
+.site-footer,
+.sidebar-footer{
+  grid-row:2;
   flex-shrink:0;
-  padding:10px var(--sp-xl);
+  min-height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 var(--sp-xl);
   font-size:11px;
+  letter-spacing:0.3px;
+  box-sizing:border-box;
+}
+.site-footer{
+  grid-column:2;
   color:var(--muted);
   text-align:center;
-  letter-spacing:0.3px;
   background:var(--canvas);
   border-top:1px solid var(--hairline);
   z-index:5;
+}
+.sidebar-footer{
+  grid-column:1;
+  font-weight:800;
+  color:rgba(255,255,255,.85);
+  text-transform:uppercase;
+  letter-spacing:2.5px;
+  background:#111111;
+  border-top:1px solid rgba(255,255,255,.12);
 }
 
 /* ── SIDEBAR ── */
@@ -167,7 +185,8 @@ a{color:inherit;text-decoration:none}
   border-right:none;
   display:flex;flex-direction:column;
   overflow-y:auto;padding:var(--sp-lg) 0;
-  grid-row:1 / 3;grid-column:1;
+  grid-row:1;grid-column:1;
+  min-height:0;
 }
 .sidebar-label{
   font-size:11px;font-weight:700;color:rgba(255,255,255,.35);
@@ -1495,16 +1514,6 @@ a{color:inherit;text-decoration:none}
 .hack-list-title{font-size:13px;font-weight:700;color:var(--on-dark);margin-bottom:4px}
 .hack-list-body{font-size:12px;color:var(--body);line-height:1.65}
 
-.sidebar-internal-label{
-  padding:13px var(--sp-lg);
-  font-size:11px;font-weight:800;
-  color:rgba(255,255,255,.85);
-  letter-spacing:2.5px;
-  text-transform:uppercase;
-  text-align:center;
-  border-top:1px solid rgba(255,255,255,.12);
-  background:rgba(0,0,0,.25);
-}
 </style>
 </head>
 <body>
@@ -1563,8 +1572,9 @@ a{color:inherit;text-decoration:none}
         <div class="sidebar-cid-sub">건 제출 완료</div>
       </div>
     </div>
-    <div class="sidebar-internal-label">Internal Use Only</div>
   </aside>
+
+  <div class="sidebar-footer">Internal Use Only</div>
 
   <!-- MAIN CONTENT -->
   <main class="main">
