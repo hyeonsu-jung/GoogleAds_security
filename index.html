@@ -148,7 +148,18 @@ a{color:inherit;text-decoration:none}
 /* ── BODY GRID ── */
 .body{display:grid;grid-template-columns:260px 1fr;grid-template-rows:1fr auto;overflow:hidden;height:calc(100vh - 68px)}
 .main{overflow-y:auto;background:var(--canvas);grid-row:1;grid-column:2}
-.site-footer{grid-row:2;grid-column:2}
+.site-footer{
+  grid-row:2;grid-column:2;
+  flex-shrink:0;
+  padding:10px var(--sp-xl);
+  font-size:11px;
+  color:var(--muted);
+  text-align:center;
+  letter-spacing:0.3px;
+  background:var(--canvas);
+  border-top:1px solid var(--hairline);
+  z-index:5;
+}
 
 /* ── SIDEBAR ── */
 .sidebar{
@@ -284,7 +295,7 @@ a{color:inherit;text-decoration:none}
 
 /* ── MAIN ── */
 .main{overflow-y:auto;background:var(--canvas)}
-.page{display:none;padding:var(--sp-xl) var(--sp-xl);animation:fadeIn .2s ease}
+.page{display:none;padding:14px var(--sp-xl) 0;animation:fadeIn .2s ease}
 .page.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 
@@ -755,16 +766,27 @@ a{color:inherit;text-decoration:none}
 }
 .gas-url-notice.hidden{display:none}
 
-/* ── PAGE 3: ADVANCED PROTECTION ── */
-.ap-features{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-md);margin-top:var(--sp-lg)}
+/* ── PAGE 4: 구글 고급 보호 프로그램 ── */
+.ap-features{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--hairline);
+  border:1px solid var(--hairline);
+}
 .ap-card{
   background:var(--surface-card);
-  border:1px solid var(--hairline);
-  padding:var(--sp-lg);
+  padding:var(--sp-lg) var(--sp-md);
+  display:flex;flex-direction:column;gap:var(--sp-sm);
+  transition:background .15s;
 }
-.ap-card-icon{font-size:20px;margin-bottom:var(--sp-sm)}
-.ap-card-title{font-size:14px;font-weight:700;color:var(--on-dark);margin-bottom:var(--sp-xs);text-transform:uppercase;letter-spacing:0.5px}
-.ap-card-body{font-size:13px;color:var(--body);line-height:1.65;font-weight:300}
+.ap-card:hover{background:var(--surface-elevated)}
+.ap-card-icon{
+  width:40px;height:40px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(26,115,232,.07);border-radius:10px;
+  flex-shrink:0;
+}
+.ap-card-title{font-size:14px;font-weight:700;color:var(--on-dark);letter-spacing:-0.2px}
+.ap-card-body{font-size:13px;color:var(--body);line-height:1.7;font-weight:400}
 
 .ap-enroll-btn{
   display:inline-flex;align-items:center;gap:var(--sp-sm);
@@ -1098,12 +1120,12 @@ a{color:inherit;text-decoration:none}
 
 /* ── CID 제출 폼 (자가진단 페이지 하단) ── */
 .cid-form-section{
-  margin-top:20px;
+  margin-top:12px;
   background:var(--surface-card);
   border:1px solid var(--hairline);
 }
 .cid-form-header{
-  padding:14px 20px 10px;
+  padding:10px 20px 8px;
   border-bottom:1px solid var(--hairline);
   display:flex;align-items:center;justify-content:space-between;
 }
@@ -1116,6 +1138,13 @@ a{color:inherit;text-decoration:none}
 .cid-form-body{
   padding:16px 20px;
   display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;
+  align-items:end;
+}
+.cid-form-inline{
+  padding:14px 20px 16px;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr auto;
+  gap:12px;
   align-items:end;
 }
 .cid-form-group{display:flex;flex-direction:column;gap:5px}
@@ -1133,6 +1162,8 @@ a{color:inherit;text-decoration:none}
 }
 .cid-form-input:focus{border-color:var(--m-blue-dark);background:#fff}
 .cid-form-input::placeholder{color:rgba(0,0,0,.3)}
+.cid-form-btn-group{justify-content:flex-end}
+.cid-form-btn-group .cid-submit-btn{width:100%;height:38px}
 .cid-submit-btn{
   display:inline-flex;align-items:center;justify-content:center;gap:6px;
   background:var(--on-dark);color:#fff;border:none;
@@ -1151,17 +1182,17 @@ a{color:inherit;text-decoration:none}
 }
 .cid-submit-status.success{display:flex;color:#137333;background:rgba(19,115,51,.07)}
 .cid-submit-status.error{display:flex;color:var(--m-red);background:rgba(200,32,20,.05)}
-.diag-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
-.diag-title{font-size:24px;font-weight:700;color:var(--on-dark);letter-spacing:-0.5px;margin:8px 0 6px;line-height:1.3}
-.diag-subtitle{font-size:17px;color:#222222;line-height:1.75;font-weight:500}
+.diag-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px}
+.diag-title{font-size:20px;font-weight:700;color:var(--on-dark);letter-spacing:-0.5px;margin:4px 0 3px;line-height:1.3}
+.diag-subtitle{font-size:18px;color:#222222;line-height:1.6;font-weight:500}
 
 /* 경로 안내 */
 .diag-path-guide{
   display:flex;align-items:center;gap:8px;flex-wrap:wrap;
   background:var(--surface-card);
   border:1px solid var(--hairline);
-  padding:14px 20px;
-  margin-bottom:14px;
+  padding:10px 16px;
+  margin-bottom:10px;
 }
 .diag-path-item-wrap{
   display:flex;align-items:center;gap:0;
@@ -1182,9 +1213,9 @@ a{color:inherit;text-decoration:none}
 
 /* 스크린샷 컨테이너 */
 .diag-screenshot-wrap{
-  border-radius:8px;overflow:hidden;
-  box-shadow:0 4px 24px rgba(0,0,0,.12), 0 1px 4px rgba(0,0,0,.08);
-  max-width:75%;
+  border-radius:6px;overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,.10), 0 1px 3px rgba(0,0,0,.06);
+  max-width:55%;
   margin:0 auto;
 }
 .diag-screen-label{
@@ -1213,10 +1244,10 @@ a{color:inherit;text-decoration:none}
 .diag-back-btn:hover{background:#333333}
 .diag-screen-hint{
   display:flex;align-items:flex-start;gap:8px;
-  padding:12px 18px;
+  padding:8px 14px;
   background:#f8f9ff;
   border-top:1px solid #e8eaf6;
-  font-size:14px;color:var(--body);line-height:1.7;
+  font-size:13px;color:var(--body);line-height:1.6;
 }
 .diag-screen-hint svg{flex-shrink:0;color:var(--m-blue-dark);margin-top:1px}
 
@@ -1612,8 +1643,8 @@ a{color:inherit;text-decoration:none}
       <div class="diag-header">
         <div>
           <div class="section-badge red">계정 보안 상태</div>
-          <div class="diag-title">Google Ads 계정 보안 상태 확인 프로세스</div>
-          <div class="diag-subtitle">아래는 실제 Google Ads 보안 탭 화면입니다. 동일한 경로로 진입하여 계정 보안 상태를 직접 확인하세요.</div>
+          <div class="emg-title">Google Ads 계정 보안 상태 확인 프로세스</div>
+          <div class="emg-subtitle">아래는 실제 Google Ads 보안 탭 화면입니다. 동일한 경로로 진입하여 계정 보안 상태를 직접 확인하세요.</div>
         </div>
       </div>
 
@@ -1717,11 +1748,11 @@ a{color:inherit;text-decoration:none}
       <div class="cid-form-section">
         <div class="cid-form-header">
           <div>
-            <div class="cid-form-title">✅ 자가진단 완료 — CID 제출</div>
-            <div class="cid-form-desc">보안 상태 확인을 완료한 계정 정보를 입력하고 제출해 주세요. 제출된 CID는 좌측 하단 점검 완료 계정 수에 반영됩니다.</div>
+            <div class="cid-form-title">계정 점검 완료 — CID 제출</div>
+            <div class="cid-form-desc">보안 상태 확인을 완료한 계정 정보를 입력하고 제출해 주세요.</div>
           </div>
         </div>
-        <div class="cid-form-body">
+        <div class="cid-form-inline">
           <div class="cid-form-group">
             <label class="cid-form-label">소속 본부 <span class="req">*</span></label>
             <input class="cid-form-input" id="cid-dept" placeholder="예) 미디어지원본부">
@@ -1731,17 +1762,18 @@ a{color:inherit;text-decoration:none}
             <input class="cid-form-input" id="cid-team" placeholder="예) 퍼포먼스광고1팀">
           </div>
           <div class="cid-form-group">
-            <label class="cid-form-label">대상 CID <span class="req">*</span></label>
+            <label class="cid-form-label">Google Ads CID <span class="req">*</span></label>
             <input class="cid-form-input" id="cid-id" placeholder="예) 987-654-3210">
           </div>
+          <div class="cid-form-group cid-form-btn-group">
+            <label class="cid-form-label">&nbsp;</label>
+            <button class="cid-submit-btn" id="cid-submit-btn" onclick="submitCID()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+              제출하기
+            </button>
+          </div>
         </div>
-        <div style="padding:0 20px 16px;display:flex;align-items:center;gap:12px">
-          <button class="cid-submit-btn" id="cid-submit-btn" onclick="submitCID()">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
-            제출하기
-          </button>
-          <div class="cid-submit-status" id="cid-submit-status"></div>
-        </div>
+        <div class="cid-submit-status" id="cid-submit-status"></div>
       </div>
 
     </div>
@@ -1807,17 +1839,6 @@ a{color:inherit;text-decoration:none}
 
       </div>
 
-      <!-- 사내 가이드라인 박스 -->
-      <div class="emg-internal">
-        <div class="emg-internal-title">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          사내 보안팀 내부 보고 및 통제 가이드라인
-        </div>
-        <div class="emg-internal-body">
-          구글 측에 외부 신고 접수를 즉시 처리함과 병행하여, <strong>사내 전산 보안 부서(CERT) 및 법무팀 담당자</strong>에게 침해 사실을 지체 없이 공유해야 합니다. 카드사 및 은행에 직접 연락하여 광고 전용 결제 카드의 결제 일시정지를 진행해 추가적인 금융 유출 피해를 완벽 방지하십시오.
-        </div>
-      </div>
-
     </div>
 
     <div class="page" id="page-3">
@@ -1843,7 +1864,10 @@ a{color:inherit;text-decoration:none}
             <div class="hack-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
             <div class="hack-card-title">Google 계정 복구</div>
             <div class="hack-card-body">공식 계정 복구 단계를 따라 본인 확인을 완료하세요.</div>
-            <button class="hack-link-btn" onclick="window.open('https://support.google.com/google-ads/contact/compromised_account','_blank')">계정 복구 바로가기 ↗</button>
+            <div style="display:flex;flex-direction:column;gap:6px;margin-top:var(--sp-xs)">
+              <button class="hack-link-btn" onclick="window.open('https://accounts.google.com/v3/signin/recoveryidentifier?flowName=GlifWebSignIn&dsh=S-1643682900%3A1779438630841858','_blank')">계정 복구 바로가기 ↗</button>
+              <button class="hack-link-btn" style="background:#1a73e8" onclick="window.open('https://support.google.com/accounts/answer/7682439?hl=ko','_blank')">Google 계정 또는 Gmail을 복구하는 방법 ↗</button>
+            </div>
           </div>
           <div class="hack-card">
             <div class="hack-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c82014" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17H2a3 3 0 000 6h20v-6z"/><path d="M22 4.5A12.53 12.53 0 0017 17H7a12.53 12.53 0 00-5-12.5"/></svg></div>
@@ -1893,14 +1917,108 @@ a{color:inherit;text-decoration:none}
 
     <!-- PAGE 4: 구글 고급 보호 프로그램 -->
     <div class="page" id="page-4">
-    </div>
 
-    <!-- 저작권 푸터 (스크롤 영역 내) -->
-    <div style="padding:6px var(--sp-xl);font-size:11px;color:var(--muted);text-align:center;letter-spacing:0.3px;">
-      © 2026 KT NAS MEDIA Co., Ltd. All rights reserved
+      <!-- 헤더 -->
+      <div class="emg-header" style="margin-bottom:var(--sp-lg)">
+        <div class="emg-header-left">
+          <div class="section-badge red">Google 최고 수준 보안</div>
+          <div class="emg-title" style="color:var(--on-dark)">구글 고급 보호 프로그램</div>
+          <div class="emg-subtitle" style="color:var(--body)">
+            온라인에서 표적 공격을 당할 위험이 높은 사용자에게 권장되는 Google의 가장 강력한 계정 보안 기능입니다.<br>
+            언론인, 활동가, 비즈니스 리더, IT 관리자, 민감한 정보를 다루는 Google 계정 사용자에게 적극 권장됩니다.
+          </div>
+        </div>
+      </div>
+
+      <!-- 3가지 핵심 보호 기능 -->
+      <div class="ap-features">
+
+        <div class="ap-card">
+          <div class="ap-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="ap-card-title">계정 무단 액세스 방지</div>
+          <div class="ap-card-body">로그인에 <strong>보안 키 또는 패스키</strong>를 사용해야 합니다. 해커에게 사용자 이름과 비밀번호가 있더라도 보안 키나 패스키가 있는 기기가 없으면 로그인할 수 없습니다.</div>
+        </div>
+
+        <div class="ap-card">
+          <div class="ap-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#137333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </div>
+          <div class="ap-card-title">유해한 다운로드 보호 강화</div>
+          <div class="ap-card-body">유해할 수 있는 파일을 다운로드하려 하면 <strong>알림을 보내거나 차단</strong>합니다. Android 기기에서는 인증된 스토어의 앱만 허용됩니다.</div>
+        </div>
+
+        <div class="ap-card">
+          <div class="ap-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c27800" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div class="ap-card-title">개인정보 안전하게 보호</div>
+          <div class="ap-card-body"><strong>Google 앱과 인증된 서드파티 앱만</strong> Google 계정 데이터에 액세스하도록 허용합니다. 명의 도용을 통한 해커의 계정 접근을 차단하고 계정 복구 시 추가 본인 확인을 거칩니다.</div>
+        </div>
+
+      </div>
+
+      <!-- 사용 설정 방법 -->
+      <div class="hack-section" style="margin-top:var(--sp-lg)">
+        <div class="hack-section-title">
+          <span class="hack-step-num" style="background:var(--m-blue-dark)">사용 설정</span>
+          고급 보호 프로그램 등록 방법
+        </div>
+        <div class="hack-list">
+          <div class="hack-list-item">
+            <div class="hack-list-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            </div>
+            <div>
+              <div class="hack-list-title">보안 키 또는 패스키 준비</div>
+              <div class="hack-list-body">패스키 또는 보안 키를 사용해 등록할 수 있습니다. 보안 키는 사용하는 기기와 호환되는 제품을 구매하세요. 계정 복구를 위해 <strong>복구 전화번호와 이메일 주소</strong>를 미리 등록해 두는 것이 좋습니다.</div>
+            </div>
+          </div>
+          <div class="hack-list-item">
+            <div class="hack-list-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#137333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div>
+              <div class="hack-list-title">고급 보호 프로그램 등록</div>
+              <div class="hack-list-body">아래 버튼을 클릭하면 Google 공식 고급 보호 등록 페이지로 이동합니다. 화면에 표시된 안내를 따라 설정을 완료하세요.</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="emg-btn blue" style="width:auto;padding:10px 24px" onclick="window.open('https://account.google.com/advanced-protection/enroll/details','_blank')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            고급 보호 프로그램 등록하기
+          </button>
+          <button class="emg-btn" style="width:auto;padding:10px 24px;background:#5f6368" onclick="window.open('https://support.google.com/accounts/answer/7539956','_blank')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            자세히 알아보기
+          </button>
+        </div>
+      </div>
+
+      <!-- 제한사항 -->
+      <div class="emg-internal" style="margin-top:var(--sp-lg)">
+        <div class="emg-internal-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          고급 보호 프로그램 적용 시 제한사항
+        </div>
+        <div class="emg-internal-body" style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;margin-top:4px">
+          <div>• 새 기기에서 로그인 시 <strong style="color:#fff">패스키 또는 보안 키 필수</strong></div>
+          <div>• Gmail을 통해서만 이메일 확인 가능</div>
+          <div>• 이메일·Google Drive 등 민감 정보 접근 앱에서 Google 계정 사용 제한</div>
+          <div>• 계정 복구 시 <strong style="color:#fff">추가 인증 단계</strong> 필요</div>
+        </div>
+      </div>
+
     </div>
 
   </main>
+
+  <footer class="site-footer">
+    © 2026 KT NAS MEDIA Co., Ltd. All rights reserved
+  </footer>
+
 </div>
 </div>
 
