@@ -1417,7 +1417,7 @@ a{color:inherit;text-decoration:none}
 
 /* 3컬럼 카드 */
 .emg-cards{
-  display:grid;grid-template-columns:repeat(3,1fr);
+  display:grid;grid-template-columns:repeat(2,1fr);
   gap:1px;background:var(--hairline);
   border:1px solid var(--hairline);
   margin-bottom:var(--sp-lg);
@@ -1812,7 +1812,7 @@ a{color:inherit;text-decoration:none}
           </div>
           <div class="emg-card-num">01</div>
           <div class="emg-card-title">도용당한 Google Ads 계정 긴급 신고</div>
-          <div class="emg-card-body">구글 애즈 접속 권한을 침해 당했거나, 외부인에 의해 결제 및 허위 승인이 무단 진행 중일 때 공식 조사를 접수하는 정식 구글 포털 소명 채널입니다.</div>
+          <div class="emg-card-body">구글 애즈 계정이 해킹·무단 접근·권한 탈취 등의 침해를 당한 경우, Google에 공식적으로 긴급 신고를 접수하고 계정 조사 및 복구 지원을 요청하는 페이지입니다.<br><br>해당 페이지를 통해 무단 생성 캠페인 조사, 비정상 과금 확인, 침해된 사용자 및 관리자 권한 제거, 광고 중단 요청, 계정 접근 복구 등의 지원을 받을 수 있습니다.</div>
           <button class="emg-btn red" onclick="window.open('https://support.google.com/google-ads/contact/compromised_account','_blank')">
             신고 접수처
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -1822,27 +1822,13 @@ a{color:inherit;text-decoration:none}
         <!-- URGENT -->
         <div class="emg-card">
           <div class="emg-card-top">
-            <span class="emg-badge urgent">URGENT</span>
+            <span class="emg-badge support">URGENT</span>
           </div>
           <div class="emg-card-num">02</div>
-          <div class="emg-card-title">구글 애즈 고객센터 긴급 요청 제출</div>
-          <div class="emg-card-body">광고 캠페인의 긴급 중단 요청 및 무단 청구된 악성 광고 결제건 무효 처리를 위해 구글 전문 지원팀에 사건 양식을 직접 제보하는 고객센터 접수처입니다.</div>
-          <button class="emg-btn amber" onclick="window.open('https://support.google.com/google-ads/?visit_id=639014939626183017-2191483060&rd=1','_blank')">
-            요청 양식 접수처
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          </button>
-        </div>
-
-        <!-- SUPPORT -->
-        <div class="emg-card">
-          <div class="emg-card-top">
-            <span class="emg-badge support">SUPPORT</span>
-          </div>
-          <div class="emg-card-num">03</div>
-          <div class="emg-card-title">Google Ads 도움말 센터 긴급 조치 가이드</div>
-          <div class="emg-card-body">구글 공식 도움말 문서를 정독하고 본인 계정 복구를 위한 단계별 검증 절차에 맞추어 무단 가입된 에이전시나 유령 이메일의 무력화를 신청하십시오.</div>
-          <button class="emg-btn blue" onclick="window.open('https://support.google.com/google-ads/contact/compromised_account','_blank')">
-            공식 지원 가이드
+          <div class="emg-card-title">구글 애즈 고객센터 긴급 접수</div>
+          <div class="emg-card-body">광고 캠페인의 긴급 중단 요청 및 무단 청구된 악성 광고 결제건 무효 처리를 위해 구글 전문 지원팀에 직접 접수하는 고객센터 채널입니다.</div>
+          <button class="emg-btn blue" onclick="window.open('https://support.google.com/google-ads/gethelp?sjid=14087024824719609468-NC','_blank')">
+            고객센터 긴급 접수
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </button>
         </div>
@@ -2008,16 +1994,16 @@ a{color:inherit;text-decoration:none}
       </div>
 
       <!-- 제한사항 -->
-      <div class="emg-internal" style="margin-top:var(--sp-lg)">
-        <div class="emg-internal-title">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <div class="emg-internal" style="margin-top:24px;background:#A6A6A6;border:none;margin-bottom:4px">
+        <div class="emg-internal-title" style="color:#111111">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
           고급 보호 프로그램 적용 시 제한사항
         </div>
-        <div class="emg-internal-body" style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;margin-top:4px">
-          <div>• 새 기기에서 로그인 시 <strong style="color:#fff">패스키 또는 보안 키 필수</strong></div>
+        <div class="emg-internal-body" style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;margin-top:4px;color:#222222">
+          <div>• 새 기기에서 로그인 시 <strong style="color:#111111">패스키 또는 보안 키 필수</strong></div>
           <div>• Gmail을 통해서만 이메일 확인 가능</div>
           <div>• 이메일·Google Drive 등 민감 정보 접근 앱에서 Google 계정 사용 제한</div>
-          <div>• 계정 복구 시 <strong style="color:#fff">추가 인증 단계</strong> 필요</div>
+          <div>• 계정 복구 시 <strong style="color:#111111">추가 인증 단계</strong> 필요</div>
         </div>
       </div>
 
