@@ -807,6 +807,75 @@ a{color:inherit;text-decoration:none}
 .ap-card-title{font-size:14px;font-weight:700;color:var(--on-dark);letter-spacing:-0.2px}
 .ap-card-body{font-size:13px;color:var(--body);line-height:1.7;font-weight:400}
 
+/* ── AP 제한사항 섹션 ── */
+/* ── PAGE 2: 패스키 설정 ── */
+.passkey-notice{
+  border:1px solid var(--hairline);
+  background:var(--surface-card);
+  margin-bottom:var(--sp-md);
+}
+.passkey-notice-item{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:12px 18px;
+  font-size:13px;color:var(--body);line-height:1.7;
+  border-bottom:1px solid var(--hairline);
+}
+.passkey-notice-item:last-child{border-bottom:none}
+.passkey-notice-item svg{flex-shrink:0;margin-top:2px}
+.passkey-notice-item strong{color:var(--on-dark)}
+.passkey-notice-urgent{background:rgba(200,32,20,.04)}
+.passkey-methods{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--hairline);
+  border:1px solid var(--hairline);
+  margin-bottom:var(--sp-md);
+}
+.passkey-method-item{
+  background:var(--surface-card);
+  padding:18px 16px;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  text-align:center;
+}
+.passkey-method-icon{font-size:28px;line-height:1}
+.passkey-method-name{font-size:13px;font-weight:600;color:var(--on-dark)}
+.passkey-links{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--hairline);
+  border:1px solid var(--hairline);
+}
+.passkey-link-item{
+  display:flex;align-items:center;gap:10px;
+  background:var(--surface-card);
+  padding:14px 18px;
+  font-size:13px;font-weight:600;
+  color:var(--m-blue-dark);
+  text-decoration:none;
+  transition:background .15s;
+}
+.passkey-link-item:hover{background:rgba(26,115,232,.05)}
+.passkey-link-item svg{flex-shrink:0}
+
+.ap-limit-section{
+  margin-top:28px;
+  border:1px solid var(--hairline);
+  background:var(--surface-soft);
+}
+.ap-limit-title{
+  display:flex;align-items:center;gap:7px;
+  font-size:13px;font-weight:700;letter-spacing:0.3px;
+  color:var(--on-dark);
+  padding:12px 20px;
+  border-bottom:1px solid var(--hairline);
+}
+.ap-limit-list{padding:10px 20px 14px}
+.ap-limit-item{
+  display:flex;align-items:flex-start;gap:8px;
+  font-size:13px;color:var(--body);line-height:1.65;
+  padding:6px 0;
+}
+.ap-limit-item svg{flex-shrink:0;margin-top:3px}
+.ap-limit-item strong{color:var(--on-dark);font-weight:700}
+
 .ap-enroll-btn{
   display:inline-flex;align-items:center;gap:var(--sp-sm);
   margin-top:var(--sp-xl);
@@ -1549,16 +1618,20 @@ a{color:inherit;text-decoration:none}
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
       자가진단 시작하기
     </div>
+    <div class="nav-item" onclick="navigate(2)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      패스키 설정 (Pass Key)
+    </div>
     <!-- EMERGENCY NAV — RED -->
-    <div class="nav-item nav-danger" onclick="navigate(2)">
+    <div class="nav-item nav-danger" onclick="navigate(3)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
       침해 사고 비상 대응
     </div>
-    <div class="nav-item" onclick="navigate(3)">
+    <div class="nav-item" onclick="navigate(4)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
       계정 도용시 취해야할 조치
     </div>
-    <div class="nav-item" onclick="navigate(4)">
+    <div class="nav-item" onclick="navigate(5)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
       구글 고급 보호 프로그램
     </div>
@@ -1589,7 +1662,7 @@ a{color:inherit;text-decoration:none}
         <div class="hero-btns">
           <button class="btn btn-primary" onclick="navigate(1)">자가진단 시작하기</button>
           <!-- EMERGENCY CTA — RED -->
-          <button class="btn btn-danger" onclick="navigate(2)">⚠ 해킹 의심 시 즉각 조치</button>
+          <button class="btn btn-danger" onclick="navigate(3)">⚠ 해킹 의심 시 즉각 조치</button>
         </div>
       </div>
 
@@ -1791,7 +1864,145 @@ a{color:inherit;text-decoration:none}
 
         <!-- PAGE 2: 구글 고급 보호 프로그램 -->
     <!-- PAGE 2: 침해 사고 비상 대응 요령 -->
+    <!-- PAGE 2: 패스키 설정하기 -->
     <div class="page" id="page-2">
+
+      <!-- 헤더 -->
+      <div class="emg-header" style="margin-bottom:var(--sp-lg)">
+        <div class="emg-header-left">
+          <div class="section-badge">Pass Key</div>
+          <div class="emg-title" style="color:var(--on-dark)">패스키 설정 (Pass Key)</div>
+          <div class="emg-subtitle" style="color:var(--body)">
+            Google Ads 계정 보안 강화를 위한 중요한 업데이트 사항을 안내드립니다.<br>
+            최근 무단 접근 및 해킹 리스크를 방지하기 위해 Google에서는 결제 정보 변경, 사용자 추가 등 <strong>민감한 계정 작업 수행 시 패스키(Passkey) 인증을 필수로 요구할 예정</strong>입니다.<br>
+            Google Ads 계정을 운영 중인 담당자께서는 캠페인 운영 및 계정 관리에 차질이 없도록 <strong>사전에 패스키를 설정</strong>해 주시기 바랍니다.
+          </div>
+        </div>
+      </div>
+
+      <!-- 1. 주요 변경 사항 -->
+      <div class="hack-section">
+        <div class="hack-section-title">
+          <span class="hack-step-num" style="background:var(--m-blue-dark)">01</span>
+          주요 변경 사항
+        </div>
+        <div style="font-size:14px;color:var(--body);line-height:1.75;margin-bottom:var(--sp-md)">
+          앞으로 Google Ads 계정 내에서 아래와 같은 <strong>민감한 작업을 수행할 경우 패스키 인증이 필요</strong>합니다.
+        </div>
+        <div class="hack-list" style="margin-bottom:var(--sp-md)">
+          <div class="hack-list-item">
+            <div class="hack-list-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+            <div><div class="hack-list-title">사용자 권한 추가</div><div class="hack-list-body">계정에 새 사용자를 초대하거나 권한을 부여하는 작업</div></div>
+          </div>
+          <div class="hack-list-item">
+            <div class="hack-list-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c82014" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+            <div><div class="hack-list-title">결제 정보 변경</div><div class="hack-list-body">결제 수단 추가·변경·삭제 등 결제 관련 민감한 작업</div></div>
+          </div>
+          <div class="hack-list-item">
+            <div class="hack-list-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c27800" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+            <div><div class="hack-list-title">기타 주요 변경 작업</div><div class="hack-list-body">계정 보안 또는 결제에 영향을 줄 수 있는 주요 계정 변경 사항</div></div>
+          </div>
+          <div class="hack-list-item">
+            <div class="hack-list-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#137333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            <div><div class="hack-list-title">일반 운영은 영향 없음</div><div class="hack-list-body">일반적인 로그인, 캠페인 조회 및 광고 운영은 영향이 없으나 패스키 미설정 시 일부 계정 관리 작업이 제한될 수 있습니다.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 패스키 설정 권장 사항 -->
+      <div class="hack-section">
+        <div class="hack-section-title">
+          <span class="hack-step-num" style="background:var(--m-blue-dark)">02</span>
+          패스키 설정 권장 사항
+        </div>
+        <div class="passkey-notice">
+          <div class="passkey-notice-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--m-blue-dark)" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            패스키는 설정 후 활성화되어 실제 사용 가능해지기까지 <strong>최대 7일이 소요</strong>될 수 있습니다.
+          </div>
+          <div class="passkey-notice-item passkey-notice-urgent">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--m-red)" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <strong>6~7월부터</strong>는 패스키 미설정 시 계정 내 민감한 작업 수행이 제한될 수 있으므로, 가능한 한 <strong>빠르게 패스키 설정을 완료</strong>해 주시기 바랍니다.
+          </div>
+          <div class="passkey-notice-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            계정별 패스키 설정 기한에 대한 안내 메일은 <strong>추후 추가 발송될 예정</strong>입니다.
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 패스키란? -->
+      <div class="hack-section">
+        <div class="hack-section-title">
+          <span class="hack-step-num" style="background:var(--m-blue-dark)">03</span>
+          패스키(Passkey)란?
+        </div>
+        <div style="font-size:14px;color:var(--body);line-height:1.75;margin-bottom:var(--sp-md)">
+          패스키는 비밀번호 대신 <strong>스마트폰이나 컴퓨터에 내장된 보안 기능</strong>을 활용해 본인임을 인증하는 방식입니다. 실제 사용자의 기기를 기반으로 인증이 이루어지기 때문에 <strong>피싱 및 무단 접근 방지에 효과적</strong>입니다.
+        </div>
+        <div class="passkey-methods">
+          <div class="passkey-method-item">
+            <div class="passkey-method-icon">🖐</div>
+            <div class="passkey-method-name">지문 인식</div>
+          </div>
+          <div class="passkey-method-item">
+            <div class="passkey-method-icon">😊</div>
+            <div class="passkey-method-name">얼굴 인식</div>
+          </div>
+          <div class="passkey-method-item">
+            <div class="passkey-method-icon">🔢</div>
+            <div class="passkey-method-name">화면 잠금 PIN</div>
+          </div>
+          <div class="passkey-method-item">
+            <div class="passkey-method-icon">📱</div>
+            <div class="passkey-method-name">기기 잠금 해제</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. 고객센터 도움말 -->
+      <div class="hack-section">
+        <div class="hack-section-title">
+          <span class="hack-step-num" style="background:var(--m-blue-dark)">04</span>
+          고객센터 도움말 및 리소스
+        </div>
+        <div style="font-size:13px;color:var(--body);margin-bottom:var(--sp-md)">
+          보다 상세한 패스키 설정 방법 및 계정 보안 권장사항은 아래 도움말 링크를 확인해 주세요.
+        </div>
+        <div class="passkey-links">
+          <a class="passkey-link-item" href="https://support.google.com/google-ads/answer/12864186?sjid=8034766524562859305-NC" target="_blank">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Google Ads 계정 보안 2단계 인증 설정
+          </a>
+          <a class="passkey-link-item" href="https://support.google.com/google-ads/answer/16917887?hl=ko" target="_blank">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Google Ads 계정 패스키 사용하기
+          </a>
+          <a class="passkey-link-item" href="https://support.google.com/accounts/answer/46526?hl=ko&sjid=8034766524562859305-NC" target="_blank">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Google 계정 보안 강화하기
+          </a>
+          <a class="passkey-link-item" href="https://www.google.com/intl/ko/account/about/passkeys/" target="_blank">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            패스키 안내 (Google 공식)
+          </a>
+        </div>
+      </div>
+
+      <!-- 안내 박스 -->
+      <div class="emg-internal">
+        <div class="emg-internal-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          담당자 필수 확인 사항
+        </div>
+        <div class="emg-internal-body">
+          Google Ads 계정을 관리 중인 담당자께서는 <strong>계정 보안 강화를 위해 패스키 설정 여부를 확인</strong>하고, 미설정 계정은 즉시 설정해 주시기 바랍니다.<br>
+          계정 도용 및 해킹으로 인한 불필요한 내부 리스크를 예방하기 위한 조치이므로, 담당자분들의 적극적인 확인 및 적용을 부탁드립니다.
+        </div>
+      </div>
+
+    </div>
+    <div class="page" id="page-3">
 
       <!-- 페이지 헤더 -->
       <div class="emg-header">
@@ -1837,7 +2048,7 @@ a{color:inherit;text-decoration:none}
 
     </div>
 
-    <div class="page" id="page-3">
+    <div class="page" id="page-4">
       <!-- 헤더 -->
       <div class="emg-header" style="margin-bottom:var(--sp-lg)">
         <div class="emg-header-left">
@@ -1912,7 +2123,7 @@ a{color:inherit;text-decoration:none}
     <!-- PAGE 4: 구글 애즈 시스템 실검증 -->
 
     <!-- PAGE 4: 구글 고급 보호 프로그램 -->
-    <div class="page" id="page-4">
+    <div class="page" id="page-5">
 
       <!-- 헤더 -->
       <div class="emg-header" style="margin-bottom:var(--sp-lg)">
@@ -1994,16 +2205,29 @@ a{color:inherit;text-decoration:none}
       </div>
 
       <!-- 제한사항 -->
-      <div class="emg-internal" style="margin-top:24px;background:#A6A6A6;border:none;margin-bottom:4px">
-        <div class="emg-internal-title" style="color:#111111">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <!-- 제한사항 -->
+      <div class="ap-limit-section">
+        <div class="ap-limit-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
           고급 보호 프로그램 적용 시 제한사항
         </div>
-        <div class="emg-internal-body" style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;margin-top:4px;color:#222222">
-          <div>• 새 기기에서 로그인 시 <strong style="color:#111111">패스키 또는 보안 키 필수</strong></div>
-          <div>• Gmail을 통해서만 이메일 확인 가능</div>
-          <div>• 이메일·Google Drive 등 민감 정보 접근 앱에서 Google 계정 사용 제한</div>
-          <div>• 계정 복구 시 <strong style="color:#111111">추가 인증 단계</strong> 필요</div>
+        <div class="ap-limit-list">
+          <div class="ap-limit-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            새 기기에서 로그인 시 <strong>패스키 또는 보안 키 필수</strong>
+          </div>
+          <div class="ap-limit-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            Gmail을 통해서만 이메일 확인 가능
+          </div>
+          <div class="ap-limit-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            이메일·Google Drive 등 민감 정보 접근 앱에서 Google 계정 사용 제한
+          </div>
+          <div class="ap-limit-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            계정 복구 시 <strong>추가 인증 단계</strong> 필요
+          </div>
         </div>
       </div>
 
@@ -3041,271 +3265,6 @@ updateProgress();
     </div>
   </div>
 </div>
-
-<script>
-var gasConfigured = false;
-var currentPage = 0;
-
-function refreshGasConfig() {
-  return fetch('/api/config')
-    .then(function(r){return r.json();})
-    .then(function(data){
-      gasConfigured = !!data.configured;
-      var notice = document.getElementById('gas-notice');
-      if(notice) notice.classList.toggle('hidden', gasConfigured);
-      updateProgress();
-    })
-    .catch(function(){
-      gasConfigured = false;
-      var notice = document.getElementById('gas-notice');
-      if(notice) notice.classList.remove('hidden');
-      updateProgress();
-    });
-}
-
-refreshGasConfig();
-
-function navigate(idx){
-  document.querySelectorAll('.nav-item').forEach(function(el,i){el.classList.toggle('active',i===idx);});
-  document.querySelectorAll('.page').forEach(function(el,i){el.classList.toggle('active',i===idx);});
-  currentPage = idx;
-}
-
-function updateProgress(){
-  var checks = ['chk-pw','chk-mfa','chk-domain','chk-owner'];
-  var fields = ['f-dept','f-team','f-cid'];
-  var checkedCount = checks.filter(function(id){return document.getElementById(id) && document.getElementById(id).checked;}).length;
-  var filledCount = fields.filter(function(id){return document.getElementById(id) && document.getElementById(id).value.trim();}).length;
-  var pct = Math.round((checkedCount / checks.length) * 100);
-
-  /* 링 */
-  var circumference = 2 * Math.PI * 52; /* r=52 → ~327 */
-  var offset = circumference - (pct / 100) * circumference;
-  var fill = document.getElementById('progress-fill');
-  if(fill){ fill.style.strokeDasharray = circumference; fill.style.strokeDashoffset = offset; }
-
-  /* 숫자 */
-  var num = document.getElementById('progress-num');
-  if(num) num.textContent = pct + '%';
-
-  /* 스텝 dot */
-  var stepMap = {'chk-pw':'step-pw','chk-mfa':'step-mfa','chk-domain':'step-domain','chk-owner':'step-owner'};
-  Object.keys(stepMap).forEach(function(chkId){
-    var el = document.getElementById(stepMap[chkId]);
-    if(!el) return;
-    var checked = document.getElementById(chkId) && document.getElementById(chkId).checked;
-    el.classList.toggle('done', checked);
-  });
-
-  var allDone = checkedCount === checks.length && filledCount === 3;
-  var copyBtn = document.getElementById('copy-btn');
-  if(copyBtn) copyBtn.disabled = !allDone;
-  var submitBtn = document.getElementById('submit-btn');
-  if(submitBtn) submitBtn.disabled = !(allDone && gasConfigured);
-}
-
-function resetChecks(){
-  ['chk-pw','chk-mfa','chk-domain','chk-owner'].forEach(function(id){document.getElementById(id).checked=false;});
-  ['f-dept','f-team','f-mcc','f-cid'].forEach(function(id){document.getElementById(id).value='';});
-  setSubmitStatus('idle');
-  updateProgress();
-}
-
-function setSubmitStatus(state, msg){
-  var el = document.getElementById('submit-status');
-  el.className = 'submit-status';
-  if(state==='success'){
-    el.className='submit-status success';
-    el.textContent='✓ '+(msg||'시트 제출 완료');
-    el.style.display='flex';
-  } else if(state==='error'){
-    el.className='submit-status error';
-    el.textContent='✕ '+(msg||'제출 실패. 재시도해 주세요');
-    el.style.display='flex';
-  } else {
-    el.style.display='none';
-  }
-}
-
-function submitToSheets(){
-  var dept=document.getElementById('f-dept').value.trim();
-  var team=document.getElementById('f-team').value.trim();
-  var mcc=document.getElementById('f-mcc').value.trim();
-  var cid=document.getElementById('f-cid').value.trim();
-  var chkPw=document.getElementById('chk-pw').checked;
-  var chkMfa=document.getElementById('chk-mfa').checked;
-  var chkDomain=document.getElementById('chk-domain').checked;
-  var chkOwner=document.getElementById('chk-owner').checked;
-  var score=Math.round([chkPw,chkMfa,chkDomain,chkOwner].filter(Boolean).length/4*100);
-  var btn=document.getElementById('submit-btn');
-  btn.disabled=true;btn.classList.add('loading');
-  btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin .8s linear infinite"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" opacity=".3"/><path d="M21 12a9 9 0 00-9-9"/></svg> 제출 중...';
-  setSubmitStatus('idle');
-  var params=new URLSearchParams({dept,team,mcc:mcc||'미입력',cid,chk_pw:String(chkPw),chk_mfa:String(chkMfa),chk_domain:String(chkDomain),chk_owner:String(chkOwner),score:String(score)});
-  fetch('/api/submit?'+params.toString(),{method:'GET'})
-    .then(function(r){return r.json().then(function(data){if(!r.ok||!data.ok) throw new Error(data.error||'제출 실패');return data;});})
-    .then(function(){
-      setSubmitStatus('success','시트 제출 완료 ('+new Date().toLocaleTimeString('ko-KR')+')');
-      btn.classList.remove('loading');
-      btn.innerHTML='✓ 제출 완료';
-      setTimeout(function(){
-        btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> 시트에 제출';
-        btn.disabled=false;
-      },5000);
-    })
-    .catch(function(err){
-      setSubmitStatus('error',err.message||'제출 실패');
-      btn.classList.remove('loading');
-      btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> 시트에 제출';
-      btn.disabled=false;
-    });
-}
-
-function copyResult(){
-  var now=new Date().toLocaleDateString('ko-KR');
-  var dept=document.getElementById('f-dept').value;
-  var team=document.getElementById('f-team').value;
-  var mcc=document.getElementById('f-mcc').value||'미입력';
-  var cid=document.getElementById('f-cid').value;
-  var text=[
-    '=== Google Ads 계정 보안상태 자가진단 점검 결과 ===',
-    '일시: '+now,'소속 본부: '+dept,'담당 팀: '+team,
-    '마스터 MCC ID: '+mcc,'대상 개별 CID: '+cid,'',
-    '[점검 항목 완료 현황]',
-    '✅ 비밀번호 재설정 완료','✅ 2단계 인증(MFA) 가동 완료',
-    '✅ 허용 도메인 제한 설정 완료','✅ 계정 소유권 보유 확인 완료','',
-    '보안 달성률: 100%',
-    '본 결과를 팀장 및 소속 본부 보안 담당자에게 제출하십시오.',
-  ].join('\n');
-  navigator.clipboard.writeText(text).then(function(){
-    var btn=document.getElementById('copy-btn');
-    btn.textContent='✓ 복사 완료';
-    setTimeout(function(){
-      btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> 결과 복사';
-    },2000);
-  });
-}
-
-function switchDiagScreen(view){
-  document.getElementById('screen-security').style.display    = (view==='security')    ? 'block' : 'none';
-  document.getElementById('screen-suggestions').style.display = (view==='suggestions') ? 'block' : 'none';
-}
-
-function showSecuritySuggestions(){
-  document.getElementById('gads-view-security').style.display='none';
-  document.getElementById('gads-view-suggestions').style.display='block';
-}
-function showSecurityMain(){
-  document.getElementById('gads-view-suggestions').style.display='none';
-  document.getElementById('gads-view-security').style.display='block';
-}
-
-function updateDiagCard(key){
-  var card   = document.getElementById('dcard-'+key);
-  var status = document.getElementById('dstatus-'+key);
-  var chk    = document.getElementById('chk-'+key);
-  if(!card||!status||!chk) return;
-  if(chk.checked){
-    card.classList.add('done');
-    status.textContent = '완료 ✓';
-  } else {
-    card.classList.remove('done');
-    status.textContent = '미완료';
-  }
-}
-
-function switchMfaTab(tab, el){
-  document.querySelectorAll('#mfa-modal .modal-tab').forEach(function(t){ t.classList.remove('active'); });
-  el.classList.add('active');
-  document.getElementById('mfa-tab-setup').style.display = (tab==='setup') ? 'block' : 'none';
-  document.getElementById('mfa-tab-otp').style.display   = (tab==='otp')   ? 'block' : 'none';
-}
-
-function closeMfaModal(e){
-  if(e.target === document.getElementById('mfa-modal')){
-    document.getElementById('mfa-modal').classList.remove('open');
-  }
-}
-
-function closeOwnerModal(e){
-  if(e.target === document.getElementById('owner-modal')){
-    document.getElementById('owner-modal').classList.remove('open');
-  }
-}
-
-function closeDomainModal(e){
-  if(e.target === document.getElementById('domain-modal')){
-    document.getElementById('domain-modal').classList.remove('open');
-  }
-}
-
-function switchPwTab(tab, el){
-  /* 탭 버튼 active */
-  document.querySelectorAll('.modal-tab').forEach(function(t){ t.classList.remove('active'); });
-  el.classList.add('active');
-  /* 컨텐츠 전환 */
-  var map = {pc:'pw-tab-pc', android:'pw-tab-android', iphone:'pw-tab-iphone'};
-  Object.keys(map).forEach(function(k){
-    document.getElementById(map[k]).style.display = (k === tab) ? 'block' : 'none';
-  });
-}
-
-function closePwModal(e){
-  if(e.target === document.getElementById('pw-modal')){
-    document.getElementById('pw-modal').classList.remove('open');
-  }
-}
-
-/* ── HERO PARTICLE NETWORK ── */
-(function(){
-  var canvas = document.getElementById('hero-canvas');
-  if(!canvas) return;
-  var ctx = canvas.getContext('2d');
-  var pts = [];
-  var COUNT = 55;
-  var MAX_DIST = 130;
-  function resize(){
-    canvas.width  = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-  for(var i=0;i<COUNT;i++){
-    pts.push({
-      x:Math.random()*canvas.width,
-      y:Math.random()*canvas.height,
-      vx:(Math.random()-.5)*.45,
-      vy:(Math.random()-.5)*.45,
-      r:Math.random()*1.8+.8
-    });
-  }
-  function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    for(var i=0;i<pts.length;i++){
-      for(var j=i+1;j<pts.length;j++){
-        var dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y;
-        var d=Math.sqrt(dx*dx+dy*dy);
-        if(d<MAX_DIST){
-          ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
-          ctx.strokeStyle='rgba(88,160,255,'+(1-d/MAX_DIST)*.55+')';
-          ctx.lineWidth=.9;ctx.stroke();
-        }
-      }
-    }
-    pts.forEach(function(p){
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle='rgba(130,185,255,.9)';ctx.fill();
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x<0||p.x>canvas.width)p.vx*=-1;
-      if(p.y<0||p.y>canvas.height)p.vy*=-1;
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
-updateProgress();
-</script>
 </body>
 </html>
     <!-- PAGE 3: 구글 애즈 시스템 실검증 -->
@@ -3673,271 +3632,6 @@ updateProgress();
     </div>
   </div>
 </div>
-
-<script>
-var gasConfigured = false;
-var currentPage = 0;
-
-function refreshGasConfig() {
-  return fetch('/api/config')
-    .then(function(r){return r.json();})
-    .then(function(data){
-      gasConfigured = !!data.configured;
-      var notice = document.getElementById('gas-notice');
-      if(notice) notice.classList.toggle('hidden', gasConfigured);
-      updateProgress();
-    })
-    .catch(function(){
-      gasConfigured = false;
-      var notice = document.getElementById('gas-notice');
-      if(notice) notice.classList.remove('hidden');
-      updateProgress();
-    });
-}
-
-refreshGasConfig();
-
-function navigate(idx){
-  document.querySelectorAll('.nav-item').forEach(function(el,i){el.classList.toggle('active',i===idx);});
-  document.querySelectorAll('.page').forEach(function(el,i){el.classList.toggle('active',i===idx);});
-  currentPage = idx;
-}
-
-function updateProgress(){
-  var checks = ['chk-pw','chk-mfa','chk-domain','chk-owner'];
-  var fields = ['f-dept','f-team','f-cid'];
-  var checkedCount = checks.filter(function(id){return document.getElementById(id) && document.getElementById(id).checked;}).length;
-  var filledCount = fields.filter(function(id){return document.getElementById(id) && document.getElementById(id).value.trim();}).length;
-  var pct = Math.round((checkedCount / checks.length) * 100);
-
-  /* 링 */
-  var circumference = 2 * Math.PI * 52; /* r=52 → ~327 */
-  var offset = circumference - (pct / 100) * circumference;
-  var fill = document.getElementById('progress-fill');
-  if(fill){ fill.style.strokeDasharray = circumference; fill.style.strokeDashoffset = offset; }
-
-  /* 숫자 */
-  var num = document.getElementById('progress-num');
-  if(num) num.textContent = pct + '%';
-
-  /* 스텝 dot */
-  var stepMap = {'chk-pw':'step-pw','chk-mfa':'step-mfa','chk-domain':'step-domain','chk-owner':'step-owner'};
-  Object.keys(stepMap).forEach(function(chkId){
-    var el = document.getElementById(stepMap[chkId]);
-    if(!el) return;
-    var checked = document.getElementById(chkId) && document.getElementById(chkId).checked;
-    el.classList.toggle('done', checked);
-  });
-
-  var allDone = checkedCount === checks.length && filledCount === 3;
-  var copyBtn = document.getElementById('copy-btn');
-  if(copyBtn) copyBtn.disabled = !allDone;
-  var submitBtn = document.getElementById('submit-btn');
-  if(submitBtn) submitBtn.disabled = !(allDone && gasConfigured);
-}
-
-function resetChecks(){
-  ['chk-pw','chk-mfa','chk-domain','chk-owner'].forEach(function(id){document.getElementById(id).checked=false;});
-  ['f-dept','f-team','f-mcc','f-cid'].forEach(function(id){document.getElementById(id).value='';});
-  setSubmitStatus('idle');
-  updateProgress();
-}
-
-function setSubmitStatus(state, msg){
-  var el = document.getElementById('submit-status');
-  el.className = 'submit-status';
-  if(state==='success'){
-    el.className='submit-status success';
-    el.textContent='✓ '+(msg||'시트 제출 완료');
-    el.style.display='flex';
-  } else if(state==='error'){
-    el.className='submit-status error';
-    el.textContent='✕ '+(msg||'제출 실패. 재시도해 주세요');
-    el.style.display='flex';
-  } else {
-    el.style.display='none';
-  }
-}
-
-function submitToSheets(){
-  var dept=document.getElementById('f-dept').value.trim();
-  var team=document.getElementById('f-team').value.trim();
-  var mcc=document.getElementById('f-mcc').value.trim();
-  var cid=document.getElementById('f-cid').value.trim();
-  var chkPw=document.getElementById('chk-pw').checked;
-  var chkMfa=document.getElementById('chk-mfa').checked;
-  var chkDomain=document.getElementById('chk-domain').checked;
-  var chkOwner=document.getElementById('chk-owner').checked;
-  var score=Math.round([chkPw,chkMfa,chkDomain,chkOwner].filter(Boolean).length/4*100);
-  var btn=document.getElementById('submit-btn');
-  btn.disabled=true;btn.classList.add('loading');
-  btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin .8s linear infinite"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" opacity=".3"/><path d="M21 12a9 9 0 00-9-9"/></svg> 제출 중...';
-  setSubmitStatus('idle');
-  var params=new URLSearchParams({dept,team,mcc:mcc||'미입력',cid,chk_pw:String(chkPw),chk_mfa:String(chkMfa),chk_domain:String(chkDomain),chk_owner:String(chkOwner),score:String(score)});
-  fetch('/api/submit?'+params.toString(),{method:'GET'})
-    .then(function(r){return r.json().then(function(data){if(!r.ok||!data.ok) throw new Error(data.error||'제출 실패');return data;});})
-    .then(function(){
-      setSubmitStatus('success','시트 제출 완료 ('+new Date().toLocaleTimeString('ko-KR')+')');
-      btn.classList.remove('loading');
-      btn.innerHTML='✓ 제출 완료';
-      setTimeout(function(){
-        btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> 시트에 제출';
-        btn.disabled=false;
-      },5000);
-    })
-    .catch(function(err){
-      setSubmitStatus('error',err.message||'제출 실패');
-      btn.classList.remove('loading');
-      btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> 시트에 제출';
-      btn.disabled=false;
-    });
-}
-
-function copyResult(){
-  var now=new Date().toLocaleDateString('ko-KR');
-  var dept=document.getElementById('f-dept').value;
-  var team=document.getElementById('f-team').value;
-  var mcc=document.getElementById('f-mcc').value||'미입력';
-  var cid=document.getElementById('f-cid').value;
-  var text=[
-    '=== Google Ads 계정 보안상태 자가진단 점검 결과 ===',
-    '일시: '+now,'소속 본부: '+dept,'담당 팀: '+team,
-    '마스터 MCC ID: '+mcc,'대상 개별 CID: '+cid,'',
-    '[점검 항목 완료 현황]',
-    '✅ 비밀번호 재설정 완료','✅ 2단계 인증(MFA) 가동 완료',
-    '✅ 허용 도메인 제한 설정 완료','✅ 계정 소유권 보유 확인 완료','',
-    '보안 달성률: 100%',
-    '본 결과를 팀장 및 소속 본부 보안 담당자에게 제출하십시오.',
-  ].join('\n');
-  navigator.clipboard.writeText(text).then(function(){
-    var btn=document.getElementById('copy-btn');
-    btn.textContent='✓ 복사 완료';
-    setTimeout(function(){
-      btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> 결과 복사';
-    },2000);
-  });
-}
-
-function switchDiagScreen(view){
-  document.getElementById('screen-security').style.display    = (view==='security')    ? 'block' : 'none';
-  document.getElementById('screen-suggestions').style.display = (view==='suggestions') ? 'block' : 'none';
-}
-
-function showSecuritySuggestions(){
-  document.getElementById('gads-view-security').style.display='none';
-  document.getElementById('gads-view-suggestions').style.display='block';
-}
-function showSecurityMain(){
-  document.getElementById('gads-view-suggestions').style.display='none';
-  document.getElementById('gads-view-security').style.display='block';
-}
-
-function updateDiagCard(key){
-  var card   = document.getElementById('dcard-'+key);
-  var status = document.getElementById('dstatus-'+key);
-  var chk    = document.getElementById('chk-'+key);
-  if(!card||!status||!chk) return;
-  if(chk.checked){
-    card.classList.add('done');
-    status.textContent = '완료 ✓';
-  } else {
-    card.classList.remove('done');
-    status.textContent = '미완료';
-  }
-}
-
-function switchMfaTab(tab, el){
-  document.querySelectorAll('#mfa-modal .modal-tab').forEach(function(t){ t.classList.remove('active'); });
-  el.classList.add('active');
-  document.getElementById('mfa-tab-setup').style.display = (tab==='setup') ? 'block' : 'none';
-  document.getElementById('mfa-tab-otp').style.display   = (tab==='otp')   ? 'block' : 'none';
-}
-
-function closeMfaModal(e){
-  if(e.target === document.getElementById('mfa-modal')){
-    document.getElementById('mfa-modal').classList.remove('open');
-  }
-}
-
-function closeOwnerModal(e){
-  if(e.target === document.getElementById('owner-modal')){
-    document.getElementById('owner-modal').classList.remove('open');
-  }
-}
-
-function closeDomainModal(e){
-  if(e.target === document.getElementById('domain-modal')){
-    document.getElementById('domain-modal').classList.remove('open');
-  }
-}
-
-function switchPwTab(tab, el){
-  /* 탭 버튼 active */
-  document.querySelectorAll('.modal-tab').forEach(function(t){ t.classList.remove('active'); });
-  el.classList.add('active');
-  /* 컨텐츠 전환 */
-  var map = {pc:'pw-tab-pc', android:'pw-tab-android', iphone:'pw-tab-iphone'};
-  Object.keys(map).forEach(function(k){
-    document.getElementById(map[k]).style.display = (k === tab) ? 'block' : 'none';
-  });
-}
-
-function closePwModal(e){
-  if(e.target === document.getElementById('pw-modal')){
-    document.getElementById('pw-modal').classList.remove('open');
-  }
-}
-
-/* ── HERO PARTICLE NETWORK ── */
-(function(){
-  var canvas = document.getElementById('hero-canvas');
-  if(!canvas) return;
-  var ctx = canvas.getContext('2d');
-  var pts = [];
-  var COUNT = 55;
-  var MAX_DIST = 130;
-  function resize(){
-    canvas.width  = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-  for(var i=0;i<COUNT;i++){
-    pts.push({
-      x:Math.random()*canvas.width,
-      y:Math.random()*canvas.height,
-      vx:(Math.random()-.5)*.45,
-      vy:(Math.random()-.5)*.45,
-      r:Math.random()*1.8+.8
-    });
-  }
-  function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    for(var i=0;i<pts.length;i++){
-      for(var j=i+1;j<pts.length;j++){
-        var dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y;
-        var d=Math.sqrt(dx*dx+dy*dy);
-        if(d<MAX_DIST){
-          ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
-          ctx.strokeStyle='rgba(88,160,255,'+(1-d/MAX_DIST)*.55+')';
-          ctx.lineWidth=.9;ctx.stroke();
-        }
-      }
-    }
-    pts.forEach(function(p){
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle='rgba(130,185,255,.9)';ctx.fill();
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x<0||p.x>canvas.width)p.vx*=-1;
-      if(p.y<0||p.y>canvas.height)p.vy*=-1;
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
-updateProgress();
-</script>
 </body>
 </html>
     <!-- PAGE 3: 구글 애즈 시스템 실검증 -->
@@ -4306,271 +4000,6 @@ updateProgress();
     </div>
   </div>
 </div>
-
-<script>
-var gasConfigured = false;
-var currentPage = 0;
-
-function refreshGasConfig() {
-  return fetch('/api/config')
-    .then(function(r){return r.json();})
-    .then(function(data){
-      gasConfigured = !!data.configured;
-      var notice = document.getElementById('gas-notice');
-      if(notice) notice.classList.toggle('hidden', gasConfigured);
-      updateProgress();
-    })
-    .catch(function(){
-      gasConfigured = false;
-      var notice = document.getElementById('gas-notice');
-      if(notice) notice.classList.remove('hidden');
-      updateProgress();
-    });
-}
-
-refreshGasConfig();
-
-function navigate(idx){
-  document.querySelectorAll('.nav-item').forEach(function(el,i){el.classList.toggle('active',i===idx);});
-  document.querySelectorAll('.page').forEach(function(el,i){el.classList.toggle('active',i===idx);});
-  currentPage = idx;
-}
-
-function updateProgress(){
-  var checks = ['chk-pw','chk-mfa','chk-domain','chk-owner'];
-  var fields = ['f-dept','f-team','f-cid'];
-  var checkedCount = checks.filter(function(id){return document.getElementById(id) && document.getElementById(id).checked;}).length;
-  var filledCount = fields.filter(function(id){return document.getElementById(id) && document.getElementById(id).value.trim();}).length;
-  var pct = Math.round((checkedCount / checks.length) * 100);
-
-  /* 링 */
-  var circumference = 2 * Math.PI * 52; /* r=52 → ~327 */
-  var offset = circumference - (pct / 100) * circumference;
-  var fill = document.getElementById('progress-fill');
-  if(fill){ fill.style.strokeDasharray = circumference; fill.style.strokeDashoffset = offset; }
-
-  /* 숫자 */
-  var num = document.getElementById('progress-num');
-  if(num) num.textContent = pct + '%';
-
-  /* 스텝 dot */
-  var stepMap = {'chk-pw':'step-pw','chk-mfa':'step-mfa','chk-domain':'step-domain','chk-owner':'step-owner'};
-  Object.keys(stepMap).forEach(function(chkId){
-    var el = document.getElementById(stepMap[chkId]);
-    if(!el) return;
-    var checked = document.getElementById(chkId) && document.getElementById(chkId).checked;
-    el.classList.toggle('done', checked);
-  });
-
-  var allDone = checkedCount === checks.length && filledCount === 3;
-  var copyBtn = document.getElementById('copy-btn');
-  if(copyBtn) copyBtn.disabled = !allDone;
-  var submitBtn = document.getElementById('submit-btn');
-  if(submitBtn) submitBtn.disabled = !(allDone && gasConfigured);
-}
-
-function resetChecks(){
-  ['chk-pw','chk-mfa','chk-domain','chk-owner'].forEach(function(id){document.getElementById(id).checked=false;});
-  ['f-dept','f-team','f-mcc','f-cid'].forEach(function(id){document.getElementById(id).value='';});
-  setSubmitStatus('idle');
-  updateProgress();
-}
-
-function setSubmitStatus(state, msg){
-  var el = document.getElementById('submit-status');
-  el.className = 'submit-status';
-  if(state==='success'){
-    el.className='submit-status success';
-    el.textContent='✓ '+(msg||'시트 제출 완료');
-    el.style.display='flex';
-  } else if(state==='error'){
-    el.className='submit-status error';
-    el.textContent='✕ '+(msg||'제출 실패. 재시도해 주세요');
-    el.style.display='flex';
-  } else {
-    el.style.display='none';
-  }
-}
-
-function submitToSheets(){
-  var dept=document.getElementById('f-dept').value.trim();
-  var team=document.getElementById('f-team').value.trim();
-  var mcc=document.getElementById('f-mcc').value.trim();
-  var cid=document.getElementById('f-cid').value.trim();
-  var chkPw=document.getElementById('chk-pw').checked;
-  var chkMfa=document.getElementById('chk-mfa').checked;
-  var chkDomain=document.getElementById('chk-domain').checked;
-  var chkOwner=document.getElementById('chk-owner').checked;
-  var score=Math.round([chkPw,chkMfa,chkDomain,chkOwner].filter(Boolean).length/4*100);
-  var btn=document.getElementById('submit-btn');
-  btn.disabled=true;btn.classList.add('loading');
-  btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin .8s linear infinite"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" opacity=".3"/><path d="M21 12a9 9 0 00-9-9"/></svg> 제출 중...';
-  setSubmitStatus('idle');
-  var params=new URLSearchParams({dept,team,mcc:mcc||'미입력',cid,chk_pw:String(chkPw),chk_mfa:String(chkMfa),chk_domain:String(chkDomain),chk_owner:String(chkOwner),score:String(score)});
-  fetch('/api/submit?'+params.toString(),{method:'GET'})
-    .then(function(r){return r.json().then(function(data){if(!r.ok||!data.ok) throw new Error(data.error||'제출 실패');return data;});})
-    .then(function(){
-      setSubmitStatus('success','시트 제출 완료 ('+new Date().toLocaleTimeString('ko-KR')+')');
-      btn.classList.remove('loading');
-      btn.innerHTML='✓ 제출 완료';
-      setTimeout(function(){
-        btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> 시트에 제출';
-        btn.disabled=false;
-      },5000);
-    })
-    .catch(function(err){
-      setSubmitStatus('error',err.message||'제출 실패');
-      btn.classList.remove('loading');
-      btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> 시트에 제출';
-      btn.disabled=false;
-    });
-}
-
-function copyResult(){
-  var now=new Date().toLocaleDateString('ko-KR');
-  var dept=document.getElementById('f-dept').value;
-  var team=document.getElementById('f-team').value;
-  var mcc=document.getElementById('f-mcc').value||'미입력';
-  var cid=document.getElementById('f-cid').value;
-  var text=[
-    '=== Google Ads 계정 보안상태 자가진단 점검 결과 ===',
-    '일시: '+now,'소속 본부: '+dept,'담당 팀: '+team,
-    '마스터 MCC ID: '+mcc,'대상 개별 CID: '+cid,'',
-    '[점검 항목 완료 현황]',
-    '✅ 비밀번호 재설정 완료','✅ 2단계 인증(MFA) 가동 완료',
-    '✅ 허용 도메인 제한 설정 완료','✅ 계정 소유권 보유 확인 완료','',
-    '보안 달성률: 100%',
-    '본 결과를 팀장 및 소속 본부 보안 담당자에게 제출하십시오.',
-  ].join('\n');
-  navigator.clipboard.writeText(text).then(function(){
-    var btn=document.getElementById('copy-btn');
-    btn.textContent='✓ 복사 완료';
-    setTimeout(function(){
-      btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> 결과 복사';
-    },2000);
-  });
-}
-
-function switchDiagScreen(view){
-  document.getElementById('screen-security').style.display    = (view==='security')    ? 'block' : 'none';
-  document.getElementById('screen-suggestions').style.display = (view==='suggestions') ? 'block' : 'none';
-}
-
-function showSecuritySuggestions(){
-  document.getElementById('gads-view-security').style.display='none';
-  document.getElementById('gads-view-suggestions').style.display='block';
-}
-function showSecurityMain(){
-  document.getElementById('gads-view-suggestions').style.display='none';
-  document.getElementById('gads-view-security').style.display='block';
-}
-
-function updateDiagCard(key){
-  var card   = document.getElementById('dcard-'+key);
-  var status = document.getElementById('dstatus-'+key);
-  var chk    = document.getElementById('chk-'+key);
-  if(!card||!status||!chk) return;
-  if(chk.checked){
-    card.classList.add('done');
-    status.textContent = '완료 ✓';
-  } else {
-    card.classList.remove('done');
-    status.textContent = '미완료';
-  }
-}
-
-function switchMfaTab(tab, el){
-  document.querySelectorAll('#mfa-modal .modal-tab').forEach(function(t){ t.classList.remove('active'); });
-  el.classList.add('active');
-  document.getElementById('mfa-tab-setup').style.display = (tab==='setup') ? 'block' : 'none';
-  document.getElementById('mfa-tab-otp').style.display   = (tab==='otp')   ? 'block' : 'none';
-}
-
-function closeMfaModal(e){
-  if(e.target === document.getElementById('mfa-modal')){
-    document.getElementById('mfa-modal').classList.remove('open');
-  }
-}
-
-function closeOwnerModal(e){
-  if(e.target === document.getElementById('owner-modal')){
-    document.getElementById('owner-modal').classList.remove('open');
-  }
-}
-
-function closeDomainModal(e){
-  if(e.target === document.getElementById('domain-modal')){
-    document.getElementById('domain-modal').classList.remove('open');
-  }
-}
-
-function switchPwTab(tab, el){
-  /* 탭 버튼 active */
-  document.querySelectorAll('.modal-tab').forEach(function(t){ t.classList.remove('active'); });
-  el.classList.add('active');
-  /* 컨텐츠 전환 */
-  var map = {pc:'pw-tab-pc', android:'pw-tab-android', iphone:'pw-tab-iphone'};
-  Object.keys(map).forEach(function(k){
-    document.getElementById(map[k]).style.display = (k === tab) ? 'block' : 'none';
-  });
-}
-
-function closePwModal(e){
-  if(e.target === document.getElementById('pw-modal')){
-    document.getElementById('pw-modal').classList.remove('open');
-  }
-}
-
-/* ── HERO PARTICLE NETWORK ── */
-(function(){
-  var canvas = document.getElementById('hero-canvas');
-  if(!canvas) return;
-  var ctx = canvas.getContext('2d');
-  var pts = [];
-  var COUNT = 55;
-  var MAX_DIST = 130;
-  function resize(){
-    canvas.width  = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-  for(var i=0;i<COUNT;i++){
-    pts.push({
-      x:Math.random()*canvas.width,
-      y:Math.random()*canvas.height,
-      vx:(Math.random()-.5)*.45,
-      vy:(Math.random()-.5)*.45,
-      r:Math.random()*1.8+.8
-    });
-  }
-  function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    for(var i=0;i<pts.length;i++){
-      for(var j=i+1;j<pts.length;j++){
-        var dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y;
-        var d=Math.sqrt(dx*dx+dy*dy);
-        if(d<MAX_DIST){
-          ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
-          ctx.strokeStyle='rgba(88,160,255,'+(1-d/MAX_DIST)*.55+')';
-          ctx.lineWidth=.9;ctx.stroke();
-        }
-      }
-    }
-    pts.forEach(function(p){
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle='rgba(130,185,255,.9)';ctx.fill();
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x<0||p.x>canvas.width)p.vx*=-1;
-      if(p.y<0||p.y>canvas.height)p.vy*=-1;
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
-updateProgress();
-</script>
 </body>
 </html>
     <!-- PAGE 3: 구글 애즈 시스템 실검증 -->
@@ -4939,271 +4368,6 @@ updateProgress();
     </div>
   </div>
 </div>
-
-<script>
-var gasConfigured = false;
-var currentPage = 0;
-
-function refreshGasConfig() {
-  return fetch('/api/config')
-    .then(function(r){return r.json();})
-    .then(function(data){
-      gasConfigured = !!data.configured;
-      var notice = document.getElementById('gas-notice');
-      if(notice) notice.classList.toggle('hidden', gasConfigured);
-      updateProgress();
-    })
-    .catch(function(){
-      gasConfigured = false;
-      var notice = document.getElementById('gas-notice');
-      if(notice) notice.classList.remove('hidden');
-      updateProgress();
-    });
-}
-
-refreshGasConfig();
-
-function navigate(idx){
-  document.querySelectorAll('.nav-item').forEach(function(el,i){el.classList.toggle('active',i===idx);});
-  document.querySelectorAll('.page').forEach(function(el,i){el.classList.toggle('active',i===idx);});
-  currentPage = idx;
-}
-
-function updateProgress(){
-  var checks = ['chk-pw','chk-mfa','chk-domain','chk-owner'];
-  var fields = ['f-dept','f-team','f-cid'];
-  var checkedCount = checks.filter(function(id){return document.getElementById(id) && document.getElementById(id).checked;}).length;
-  var filledCount = fields.filter(function(id){return document.getElementById(id) && document.getElementById(id).value.trim();}).length;
-  var pct = Math.round((checkedCount / checks.length) * 100);
-
-  /* 링 */
-  var circumference = 2 * Math.PI * 52; /* r=52 → ~327 */
-  var offset = circumference - (pct / 100) * circumference;
-  var fill = document.getElementById('progress-fill');
-  if(fill){ fill.style.strokeDasharray = circumference; fill.style.strokeDashoffset = offset; }
-
-  /* 숫자 */
-  var num = document.getElementById('progress-num');
-  if(num) num.textContent = pct + '%';
-
-  /* 스텝 dot */
-  var stepMap = {'chk-pw':'step-pw','chk-mfa':'step-mfa','chk-domain':'step-domain','chk-owner':'step-owner'};
-  Object.keys(stepMap).forEach(function(chkId){
-    var el = document.getElementById(stepMap[chkId]);
-    if(!el) return;
-    var checked = document.getElementById(chkId) && document.getElementById(chkId).checked;
-    el.classList.toggle('done', checked);
-  });
-
-  var allDone = checkedCount === checks.length && filledCount === 3;
-  var copyBtn = document.getElementById('copy-btn');
-  if(copyBtn) copyBtn.disabled = !allDone;
-  var submitBtn = document.getElementById('submit-btn');
-  if(submitBtn) submitBtn.disabled = !(allDone && gasConfigured);
-}
-
-function resetChecks(){
-  ['chk-pw','chk-mfa','chk-domain','chk-owner'].forEach(function(id){document.getElementById(id).checked=false;});
-  ['f-dept','f-team','f-mcc','f-cid'].forEach(function(id){document.getElementById(id).value='';});
-  setSubmitStatus('idle');
-  updateProgress();
-}
-
-function setSubmitStatus(state, msg){
-  var el = document.getElementById('submit-status');
-  el.className = 'submit-status';
-  if(state==='success'){
-    el.className='submit-status success';
-    el.textContent='✓ '+(msg||'시트 제출 완료');
-    el.style.display='flex';
-  } else if(state==='error'){
-    el.className='submit-status error';
-    el.textContent='✕ '+(msg||'제출 실패. 재시도해 주세요');
-    el.style.display='flex';
-  } else {
-    el.style.display='none';
-  }
-}
-
-function submitToSheets(){
-  var dept=document.getElementById('f-dept').value.trim();
-  var team=document.getElementById('f-team').value.trim();
-  var mcc=document.getElementById('f-mcc').value.trim();
-  var cid=document.getElementById('f-cid').value.trim();
-  var chkPw=document.getElementById('chk-pw').checked;
-  var chkMfa=document.getElementById('chk-mfa').checked;
-  var chkDomain=document.getElementById('chk-domain').checked;
-  var chkOwner=document.getElementById('chk-owner').checked;
-  var score=Math.round([chkPw,chkMfa,chkDomain,chkOwner].filter(Boolean).length/4*100);
-  var btn=document.getElementById('submit-btn');
-  btn.disabled=true;btn.classList.add('loading');
-  btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin .8s linear infinite"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" opacity=".3"/><path d="M21 12a9 9 0 00-9-9"/></svg> 제출 중...';
-  setSubmitStatus('idle');
-  var params=new URLSearchParams({dept,team,mcc:mcc||'미입력',cid,chk_pw:String(chkPw),chk_mfa:String(chkMfa),chk_domain:String(chkDomain),chk_owner:String(chkOwner),score:String(score)});
-  fetch('/api/submit?'+params.toString(),{method:'GET'})
-    .then(function(r){return r.json().then(function(data){if(!r.ok||!data.ok) throw new Error(data.error||'제출 실패');return data;});})
-    .then(function(){
-      setSubmitStatus('success','시트 제출 완료 ('+new Date().toLocaleTimeString('ko-KR')+')');
-      btn.classList.remove('loading');
-      btn.innerHTML='✓ 제출 완료';
-      setTimeout(function(){
-        btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> 시트에 제출';
-        btn.disabled=false;
-      },5000);
-    })
-    .catch(function(err){
-      setSubmitStatus('error',err.message||'제출 실패');
-      btn.classList.remove('loading');
-      btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> 시트에 제출';
-      btn.disabled=false;
-    });
-}
-
-function copyResult(){
-  var now=new Date().toLocaleDateString('ko-KR');
-  var dept=document.getElementById('f-dept').value;
-  var team=document.getElementById('f-team').value;
-  var mcc=document.getElementById('f-mcc').value||'미입력';
-  var cid=document.getElementById('f-cid').value;
-  var text=[
-    '=== Google Ads 계정 보안상태 자가진단 점검 결과 ===',
-    '일시: '+now,'소속 본부: '+dept,'담당 팀: '+team,
-    '마스터 MCC ID: '+mcc,'대상 개별 CID: '+cid,'',
-    '[점검 항목 완료 현황]',
-    '✅ 비밀번호 재설정 완료','✅ 2단계 인증(MFA) 가동 완료',
-    '✅ 허용 도메인 제한 설정 완료','✅ 계정 소유권 보유 확인 완료','',
-    '보안 달성률: 100%',
-    '본 결과를 팀장 및 소속 본부 보안 담당자에게 제출하십시오.',
-  ].join('\n');
-  navigator.clipboard.writeText(text).then(function(){
-    var btn=document.getElementById('copy-btn');
-    btn.textContent='✓ 복사 완료';
-    setTimeout(function(){
-      btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> 결과 복사';
-    },2000);
-  });
-}
-
-function switchDiagScreen(view){
-  document.getElementById('screen-security').style.display    = (view==='security')    ? 'block' : 'none';
-  document.getElementById('screen-suggestions').style.display = (view==='suggestions') ? 'block' : 'none';
-}
-
-function showSecuritySuggestions(){
-  document.getElementById('gads-view-security').style.display='none';
-  document.getElementById('gads-view-suggestions').style.display='block';
-}
-function showSecurityMain(){
-  document.getElementById('gads-view-suggestions').style.display='none';
-  document.getElementById('gads-view-security').style.display='block';
-}
-
-function updateDiagCard(key){
-  var card   = document.getElementById('dcard-'+key);
-  var status = document.getElementById('dstatus-'+key);
-  var chk    = document.getElementById('chk-'+key);
-  if(!card||!status||!chk) return;
-  if(chk.checked){
-    card.classList.add('done');
-    status.textContent = '완료 ✓';
-  } else {
-    card.classList.remove('done');
-    status.textContent = '미완료';
-  }
-}
-
-function switchMfaTab(tab, el){
-  document.querySelectorAll('#mfa-modal .modal-tab').forEach(function(t){ t.classList.remove('active'); });
-  el.classList.add('active');
-  document.getElementById('mfa-tab-setup').style.display = (tab==='setup') ? 'block' : 'none';
-  document.getElementById('mfa-tab-otp').style.display   = (tab==='otp')   ? 'block' : 'none';
-}
-
-function closeMfaModal(e){
-  if(e.target === document.getElementById('mfa-modal')){
-    document.getElementById('mfa-modal').classList.remove('open');
-  }
-}
-
-function closeOwnerModal(e){
-  if(e.target === document.getElementById('owner-modal')){
-    document.getElementById('owner-modal').classList.remove('open');
-  }
-}
-
-function closeDomainModal(e){
-  if(e.target === document.getElementById('domain-modal')){
-    document.getElementById('domain-modal').classList.remove('open');
-  }
-}
-
-function switchPwTab(tab, el){
-  /* 탭 버튼 active */
-  document.querySelectorAll('.modal-tab').forEach(function(t){ t.classList.remove('active'); });
-  el.classList.add('active');
-  /* 컨텐츠 전환 */
-  var map = {pc:'pw-tab-pc', android:'pw-tab-android', iphone:'pw-tab-iphone'};
-  Object.keys(map).forEach(function(k){
-    document.getElementById(map[k]).style.display = (k === tab) ? 'block' : 'none';
-  });
-}
-
-function closePwModal(e){
-  if(e.target === document.getElementById('pw-modal')){
-    document.getElementById('pw-modal').classList.remove('open');
-  }
-}
-
-/* ── HERO PARTICLE NETWORK ── */
-(function(){
-  var canvas = document.getElementById('hero-canvas');
-  if(!canvas) return;
-  var ctx = canvas.getContext('2d');
-  var pts = [];
-  var COUNT = 55;
-  var MAX_DIST = 130;
-  function resize(){
-    canvas.width  = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-  for(var i=0;i<COUNT;i++){
-    pts.push({
-      x:Math.random()*canvas.width,
-      y:Math.random()*canvas.height,
-      vx:(Math.random()-.5)*.45,
-      vy:(Math.random()-.5)*.45,
-      r:Math.random()*1.8+.8
-    });
-  }
-  function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    for(var i=0;i<pts.length;i++){
-      for(var j=i+1;j<pts.length;j++){
-        var dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y;
-        var d=Math.sqrt(dx*dx+dy*dy);
-        if(d<MAX_DIST){
-          ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
-          ctx.strokeStyle='rgba(88,160,255,'+(1-d/MAX_DIST)*.55+')';
-          ctx.lineWidth=.9;ctx.stroke();
-        }
-      }
-    }
-    pts.forEach(function(p){
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle='rgba(130,185,255,.9)';ctx.fill();
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x<0||p.x>canvas.width)p.vx*=-1;
-      if(p.y<0||p.y>canvas.height)p.vy*=-1;
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
-updateProgress();
-</script>
 </body>
 </html>
     <!-- PAGE 3: 구글 애즈 시스템 실검증 -->
@@ -5571,271 +4735,6 @@ updateProgress();
     </div>
   </div>
 </div>
-
-<script>
-var gasConfigured = false;
-var currentPage = 0;
-
-function refreshGasConfig() {
-  return fetch('/api/config')
-    .then(function(r){return r.json();})
-    .then(function(data){
-      gasConfigured = !!data.configured;
-      var notice = document.getElementById('gas-notice');
-      if(notice) notice.classList.toggle('hidden', gasConfigured);
-      updateProgress();
-    })
-    .catch(function(){
-      gasConfigured = false;
-      var notice = document.getElementById('gas-notice');
-      if(notice) notice.classList.remove('hidden');
-      updateProgress();
-    });
-}
-
-refreshGasConfig();
-
-function navigate(idx){
-  document.querySelectorAll('.nav-item').forEach(function(el,i){el.classList.toggle('active',i===idx);});
-  document.querySelectorAll('.page').forEach(function(el,i){el.classList.toggle('active',i===idx);});
-  currentPage = idx;
-}
-
-function updateProgress(){
-  var checks = ['chk-pw','chk-mfa','chk-domain','chk-owner'];
-  var fields = ['f-dept','f-team','f-cid'];
-  var checkedCount = checks.filter(function(id){return document.getElementById(id) && document.getElementById(id).checked;}).length;
-  var filledCount = fields.filter(function(id){return document.getElementById(id) && document.getElementById(id).value.trim();}).length;
-  var pct = Math.round((checkedCount / checks.length) * 100);
-
-  /* 링 */
-  var circumference = 2 * Math.PI * 52; /* r=52 → ~327 */
-  var offset = circumference - (pct / 100) * circumference;
-  var fill = document.getElementById('progress-fill');
-  if(fill){ fill.style.strokeDasharray = circumference; fill.style.strokeDashoffset = offset; }
-
-  /* 숫자 */
-  var num = document.getElementById('progress-num');
-  if(num) num.textContent = pct + '%';
-
-  /* 스텝 dot */
-  var stepMap = {'chk-pw':'step-pw','chk-mfa':'step-mfa','chk-domain':'step-domain','chk-owner':'step-owner'};
-  Object.keys(stepMap).forEach(function(chkId){
-    var el = document.getElementById(stepMap[chkId]);
-    if(!el) return;
-    var checked = document.getElementById(chkId) && document.getElementById(chkId).checked;
-    el.classList.toggle('done', checked);
-  });
-
-  var allDone = checkedCount === checks.length && filledCount === 3;
-  var copyBtn = document.getElementById('copy-btn');
-  if(copyBtn) copyBtn.disabled = !allDone;
-  var submitBtn = document.getElementById('submit-btn');
-  if(submitBtn) submitBtn.disabled = !(allDone && gasConfigured);
-}
-
-function resetChecks(){
-  ['chk-pw','chk-mfa','chk-domain','chk-owner'].forEach(function(id){document.getElementById(id).checked=false;});
-  ['f-dept','f-team','f-mcc','f-cid'].forEach(function(id){document.getElementById(id).value='';});
-  setSubmitStatus('idle');
-  updateProgress();
-}
-
-function setSubmitStatus(state, msg){
-  var el = document.getElementById('submit-status');
-  el.className = 'submit-status';
-  if(state==='success'){
-    el.className='submit-status success';
-    el.textContent='✓ '+(msg||'시트 제출 완료');
-    el.style.display='flex';
-  } else if(state==='error'){
-    el.className='submit-status error';
-    el.textContent='✕ '+(msg||'제출 실패. 재시도해 주세요');
-    el.style.display='flex';
-  } else {
-    el.style.display='none';
-  }
-}
-
-function submitToSheets(){
-  var dept=document.getElementById('f-dept').value.trim();
-  var team=document.getElementById('f-team').value.trim();
-  var mcc=document.getElementById('f-mcc').value.trim();
-  var cid=document.getElementById('f-cid').value.trim();
-  var chkPw=document.getElementById('chk-pw').checked;
-  var chkMfa=document.getElementById('chk-mfa').checked;
-  var chkDomain=document.getElementById('chk-domain').checked;
-  var chkOwner=document.getElementById('chk-owner').checked;
-  var score=Math.round([chkPw,chkMfa,chkDomain,chkOwner].filter(Boolean).length/4*100);
-  var btn=document.getElementById('submit-btn');
-  btn.disabled=true;btn.classList.add('loading');
-  btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin .8s linear infinite"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" opacity=".3"/><path d="M21 12a9 9 0 00-9-9"/></svg> 제출 중...';
-  setSubmitStatus('idle');
-  var params=new URLSearchParams({dept,team,mcc:mcc||'미입력',cid,chk_pw:String(chkPw),chk_mfa:String(chkMfa),chk_domain:String(chkDomain),chk_owner:String(chkOwner),score:String(score)});
-  fetch('/api/submit?'+params.toString(),{method:'GET'})
-    .then(function(r){return r.json().then(function(data){if(!r.ok||!data.ok) throw new Error(data.error||'제출 실패');return data;});})
-    .then(function(){
-      setSubmitStatus('success','시트 제출 완료 ('+new Date().toLocaleTimeString('ko-KR')+')');
-      btn.classList.remove('loading');
-      btn.innerHTML='✓ 제출 완료';
-      setTimeout(function(){
-        btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> 시트에 제출';
-        btn.disabled=false;
-      },5000);
-    })
-    .catch(function(err){
-      setSubmitStatus('error',err.message||'제출 실패');
-      btn.classList.remove('loading');
-      btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> 시트에 제출';
-      btn.disabled=false;
-    });
-}
-
-function copyResult(){
-  var now=new Date().toLocaleDateString('ko-KR');
-  var dept=document.getElementById('f-dept').value;
-  var team=document.getElementById('f-team').value;
-  var mcc=document.getElementById('f-mcc').value||'미입력';
-  var cid=document.getElementById('f-cid').value;
-  var text=[
-    '=== Google Ads 계정 보안상태 자가진단 점검 결과 ===',
-    '일시: '+now,'소속 본부: '+dept,'담당 팀: '+team,
-    '마스터 MCC ID: '+mcc,'대상 개별 CID: '+cid,'',
-    '[점검 항목 완료 현황]',
-    '✅ 비밀번호 재설정 완료','✅ 2단계 인증(MFA) 가동 완료',
-    '✅ 허용 도메인 제한 설정 완료','✅ 계정 소유권 보유 확인 완료','',
-    '보안 달성률: 100%',
-    '본 결과를 팀장 및 소속 본부 보안 담당자에게 제출하십시오.',
-  ].join('\n');
-  navigator.clipboard.writeText(text).then(function(){
-    var btn=document.getElementById('copy-btn');
-    btn.textContent='✓ 복사 완료';
-    setTimeout(function(){
-      btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> 결과 복사';
-    },2000);
-  });
-}
-
-function switchDiagScreen(view){
-  document.getElementById('screen-security').style.display    = (view==='security')    ? 'block' : 'none';
-  document.getElementById('screen-suggestions').style.display = (view==='suggestions') ? 'block' : 'none';
-}
-
-function showSecuritySuggestions(){
-  document.getElementById('gads-view-security').style.display='none';
-  document.getElementById('gads-view-suggestions').style.display='block';
-}
-function showSecurityMain(){
-  document.getElementById('gads-view-suggestions').style.display='none';
-  document.getElementById('gads-view-security').style.display='block';
-}
-
-function updateDiagCard(key){
-  var card   = document.getElementById('dcard-'+key);
-  var status = document.getElementById('dstatus-'+key);
-  var chk    = document.getElementById('chk-'+key);
-  if(!card||!status||!chk) return;
-  if(chk.checked){
-    card.classList.add('done');
-    status.textContent = '완료 ✓';
-  } else {
-    card.classList.remove('done');
-    status.textContent = '미완료';
-  }
-}
-
-function switchMfaTab(tab, el){
-  document.querySelectorAll('#mfa-modal .modal-tab').forEach(function(t){ t.classList.remove('active'); });
-  el.classList.add('active');
-  document.getElementById('mfa-tab-setup').style.display = (tab==='setup') ? 'block' : 'none';
-  document.getElementById('mfa-tab-otp').style.display   = (tab==='otp')   ? 'block' : 'none';
-}
-
-function closeMfaModal(e){
-  if(e.target === document.getElementById('mfa-modal')){
-    document.getElementById('mfa-modal').classList.remove('open');
-  }
-}
-
-function closeOwnerModal(e){
-  if(e.target === document.getElementById('owner-modal')){
-    document.getElementById('owner-modal').classList.remove('open');
-  }
-}
-
-function closeDomainModal(e){
-  if(e.target === document.getElementById('domain-modal')){
-    document.getElementById('domain-modal').classList.remove('open');
-  }
-}
-
-function switchPwTab(tab, el){
-  /* 탭 버튼 active */
-  document.querySelectorAll('.modal-tab').forEach(function(t){ t.classList.remove('active'); });
-  el.classList.add('active');
-  /* 컨텐츠 전환 */
-  var map = {pc:'pw-tab-pc', android:'pw-tab-android', iphone:'pw-tab-iphone'};
-  Object.keys(map).forEach(function(k){
-    document.getElementById(map[k]).style.display = (k === tab) ? 'block' : 'none';
-  });
-}
-
-function closePwModal(e){
-  if(e.target === document.getElementById('pw-modal')){
-    document.getElementById('pw-modal').classList.remove('open');
-  }
-}
-
-/* ── HERO PARTICLE NETWORK ── */
-(function(){
-  var canvas = document.getElementById('hero-canvas');
-  if(!canvas) return;
-  var ctx = canvas.getContext('2d');
-  var pts = [];
-  var COUNT = 55;
-  var MAX_DIST = 130;
-  function resize(){
-    canvas.width  = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-  for(var i=0;i<COUNT;i++){
-    pts.push({
-      x:Math.random()*canvas.width,
-      y:Math.random()*canvas.height,
-      vx:(Math.random()-.5)*.45,
-      vy:(Math.random()-.5)*.45,
-      r:Math.random()*1.8+.8
-    });
-  }
-  function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    for(var i=0;i<pts.length;i++){
-      for(var j=i+1;j<pts.length;j++){
-        var dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y;
-        var d=Math.sqrt(dx*dx+dy*dy);
-        if(d<MAX_DIST){
-          ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
-          ctx.strokeStyle='rgba(88,160,255,'+(1-d/MAX_DIST)*.55+')';
-          ctx.lineWidth=.9;ctx.stroke();
-        }
-      }
-    }
-    pts.forEach(function(p){
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle='rgba(130,185,255,.9)';ctx.fill();
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x<0||p.x>canvas.width)p.vx*=-1;
-      if(p.y<0||p.y>canvas.height)p.vy*=-1;
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
-updateProgress();
-</script>
 </body>
 </html>
     <!-- PAGE 3: 구글 애즈 시스템 실검증 -->
@@ -6203,270 +5102,5 @@ updateProgress();
     </div>
   </div>
 </div>
-
-<script>
-var gasConfigured = false;
-var currentPage = 0;
-
-function refreshGasConfig() {
-  return fetch('/api/config')
-    .then(function(r){return r.json();})
-    .then(function(data){
-      gasConfigured = !!data.configured;
-      var notice = document.getElementById('gas-notice');
-      if(notice) notice.classList.toggle('hidden', gasConfigured);
-      updateProgress();
-    })
-    .catch(function(){
-      gasConfigured = false;
-      var notice = document.getElementById('gas-notice');
-      if(notice) notice.classList.remove('hidden');
-      updateProgress();
-    });
-}
-
-refreshGasConfig();
-
-function navigate(idx){
-  document.querySelectorAll('.nav-item').forEach(function(el,i){el.classList.toggle('active',i===idx);});
-  document.querySelectorAll('.page').forEach(function(el,i){el.classList.toggle('active',i===idx);});
-  currentPage = idx;
-}
-
-function updateProgress(){
-  var checks = ['chk-pw','chk-mfa','chk-domain','chk-owner'];
-  var fields = ['f-dept','f-team','f-cid'];
-  var checkedCount = checks.filter(function(id){return document.getElementById(id) && document.getElementById(id).checked;}).length;
-  var filledCount = fields.filter(function(id){return document.getElementById(id) && document.getElementById(id).value.trim();}).length;
-  var pct = Math.round((checkedCount / checks.length) * 100);
-
-  /* 링 */
-  var circumference = 2 * Math.PI * 52; /* r=52 → ~327 */
-  var offset = circumference - (pct / 100) * circumference;
-  var fill = document.getElementById('progress-fill');
-  if(fill){ fill.style.strokeDasharray = circumference; fill.style.strokeDashoffset = offset; }
-
-  /* 숫자 */
-  var num = document.getElementById('progress-num');
-  if(num) num.textContent = pct + '%';
-
-  /* 스텝 dot */
-  var stepMap = {'chk-pw':'step-pw','chk-mfa':'step-mfa','chk-domain':'step-domain','chk-owner':'step-owner'};
-  Object.keys(stepMap).forEach(function(chkId){
-    var el = document.getElementById(stepMap[chkId]);
-    if(!el) return;
-    var checked = document.getElementById(chkId) && document.getElementById(chkId).checked;
-    el.classList.toggle('done', checked);
-  });
-
-  var allDone = checkedCount === checks.length && filledCount === 3;
-  var copyBtn = document.getElementById('copy-btn');
-  if(copyBtn) copyBtn.disabled = !allDone;
-  var submitBtn = document.getElementById('submit-btn');
-  if(submitBtn) submitBtn.disabled = !(allDone && gasConfigured);
-}
-
-function resetChecks(){
-  ['chk-pw','chk-mfa','chk-domain','chk-owner'].forEach(function(id){document.getElementById(id).checked=false;});
-  ['f-dept','f-team','f-mcc','f-cid'].forEach(function(id){document.getElementById(id).value='';});
-  setSubmitStatus('idle');
-  updateProgress();
-}
-
-function setSubmitStatus(state, msg){
-  var el = document.getElementById('submit-status');
-  el.className = 'submit-status';
-  if(state==='success'){
-    el.className='submit-status success';
-    el.textContent='✓ '+(msg||'시트 제출 완료');
-    el.style.display='flex';
-  } else if(state==='error'){
-    el.className='submit-status error';
-    el.textContent='✕ '+(msg||'제출 실패. 재시도해 주세요');
-    el.style.display='flex';
-  } else {
-    el.style.display='none';
-  }
-}
-
-function submitToSheets(){
-  var dept=document.getElementById('f-dept').value.trim();
-  var team=document.getElementById('f-team').value.trim();
-  var mcc=document.getElementById('f-mcc').value.trim();
-  var cid=document.getElementById('f-cid').value.trim();
-  var chkPw=document.getElementById('chk-pw').checked;
-  var chkMfa=document.getElementById('chk-mfa').checked;
-  var chkDomain=document.getElementById('chk-domain').checked;
-  var chkOwner=document.getElementById('chk-owner').checked;
-  var score=Math.round([chkPw,chkMfa,chkDomain,chkOwner].filter(Boolean).length/4*100);
-  var btn=document.getElementById('submit-btn');
-  btn.disabled=true;btn.classList.add('loading');
-  btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin .8s linear infinite"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" opacity=".3"/><path d="M21 12a9 9 0 00-9-9"/></svg> 제출 중...';
-  setSubmitStatus('idle');
-  var params=new URLSearchParams({dept,team,mcc:mcc||'미입력',cid,chk_pw:String(chkPw),chk_mfa:String(chkMfa),chk_domain:String(chkDomain),chk_owner:String(chkOwner),score:String(score)});
-  fetch('/api/submit?'+params.toString(),{method:'GET'})
-    .then(function(r){return r.json().then(function(data){if(!r.ok||!data.ok) throw new Error(data.error||'제출 실패');return data;});})
-    .then(function(){
-      setSubmitStatus('success','시트 제출 완료 ('+new Date().toLocaleTimeString('ko-KR')+')');
-      btn.classList.remove('loading');
-      btn.innerHTML='✓ 제출 완료';
-      setTimeout(function(){
-        btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> 시트에 제출';
-        btn.disabled=false;
-      },5000);
-    })
-    .catch(function(err){
-      setSubmitStatus('error',err.message||'제출 실패');
-      btn.classList.remove('loading');
-      btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> 시트에 제출';
-      btn.disabled=false;
-    });
-}
-
-function copyResult(){
-  var now=new Date().toLocaleDateString('ko-KR');
-  var dept=document.getElementById('f-dept').value;
-  var team=document.getElementById('f-team').value;
-  var mcc=document.getElementById('f-mcc').value||'미입력';
-  var cid=document.getElementById('f-cid').value;
-  var text=[
-    '=== Google Ads 계정 보안상태 자가진단 점검 결과 ===',
-    '일시: '+now,'소속 본부: '+dept,'담당 팀: '+team,
-    '마스터 MCC ID: '+mcc,'대상 개별 CID: '+cid,'',
-    '[점검 항목 완료 현황]',
-    '✅ 비밀번호 재설정 완료','✅ 2단계 인증(MFA) 가동 완료',
-    '✅ 허용 도메인 제한 설정 완료','✅ 계정 소유권 보유 확인 완료','',
-    '보안 달성률: 100%',
-    '본 결과를 팀장 및 소속 본부 보안 담당자에게 제출하십시오.',
-  ].join('\n');
-  navigator.clipboard.writeText(text).then(function(){
-    var btn=document.getElementById('copy-btn');
-    btn.textContent='✓ 복사 완료';
-    setTimeout(function(){
-      btn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> 결과 복사';
-    },2000);
-  });
-}
-
-function switchDiagScreen(view){
-  document.getElementById('screen-security').style.display    = (view==='security')    ? 'block' : 'none';
-  document.getElementById('screen-suggestions').style.display = (view==='suggestions') ? 'block' : 'none';
-}
-
-function showSecuritySuggestions(){
-  document.getElementById('gads-view-security').style.display='none';
-  document.getElementById('gads-view-suggestions').style.display='block';
-}
-function showSecurityMain(){
-  document.getElementById('gads-view-suggestions').style.display='none';
-  document.getElementById('gads-view-security').style.display='block';
-}
-
-function updateDiagCard(key){
-  var card   = document.getElementById('dcard-'+key);
-  var status = document.getElementById('dstatus-'+key);
-  var chk    = document.getElementById('chk-'+key);
-  if(!card||!status||!chk) return;
-  if(chk.checked){
-    card.classList.add('done');
-    status.textContent = '완료 ✓';
-  } else {
-    card.classList.remove('done');
-    status.textContent = '미완료';
-  }
-}
-
-function switchMfaTab(tab, el){
-  document.querySelectorAll('#mfa-modal .modal-tab').forEach(function(t){ t.classList.remove('active'); });
-  el.classList.add('active');
-  document.getElementById('mfa-tab-setup').style.display = (tab==='setup') ? 'block' : 'none';
-  document.getElementById('mfa-tab-otp').style.display   = (tab==='otp')   ? 'block' : 'none';
-}
-
-function closeMfaModal(e){
-  if(e.target === document.getElementById('mfa-modal')){
-    document.getElementById('mfa-modal').classList.remove('open');
-  }
-}
-
-function closeOwnerModal(e){
-  if(e.target === document.getElementById('owner-modal')){
-    document.getElementById('owner-modal').classList.remove('open');
-  }
-}
-
-function closeDomainModal(e){
-  if(e.target === document.getElementById('domain-modal')){
-    document.getElementById('domain-modal').classList.remove('open');
-  }
-}
-
-function switchPwTab(tab, el){
-  /* 탭 버튼 active */
-  document.querySelectorAll('.modal-tab').forEach(function(t){ t.classList.remove('active'); });
-  el.classList.add('active');
-  /* 컨텐츠 전환 */
-  var map = {pc:'pw-tab-pc', android:'pw-tab-android', iphone:'pw-tab-iphone'};
-  Object.keys(map).forEach(function(k){
-    document.getElementById(map[k]).style.display = (k === tab) ? 'block' : 'none';
-  });
-}
-
-function closePwModal(e){
-  if(e.target === document.getElementById('pw-modal')){
-    document.getElementById('pw-modal').classList.remove('open');
-  }
-}
-
-/* ── HERO PARTICLE NETWORK ── */
-(function(){
-  var canvas = document.getElementById('hero-canvas');
-  if(!canvas) return;
-  var ctx = canvas.getContext('2d');
-  var pts = [];
-  var COUNT = 55;
-  var MAX_DIST = 130;
-  function resize(){
-    canvas.width  = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-  for(var i=0;i<COUNT;i++){
-    pts.push({
-      x:Math.random()*canvas.width,
-      y:Math.random()*canvas.height,
-      vx:(Math.random()-.5)*.45,
-      vy:(Math.random()-.5)*.45,
-      r:Math.random()*1.8+.8
-    });
-  }
-  function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    for(var i=0;i<pts.length;i++){
-      for(var j=i+1;j<pts.length;j++){
-        var dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y;
-        var d=Math.sqrt(dx*dx+dy*dy);
-        if(d<MAX_DIST){
-          ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
-          ctx.strokeStyle='rgba(88,160,255,'+(1-d/MAX_DIST)*.55+')';
-          ctx.lineWidth=.9;ctx.stroke();
-        }
-      }
-    }
-    pts.forEach(function(p){
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle='rgba(130,185,255,.9)';ctx.fill();
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x<0||p.x>canvas.width)p.vx*=-1;
-      if(p.y<0||p.y>canvas.height)p.vy*=-1;
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
-updateProgress();
-</script>
 </body>
 </html>
